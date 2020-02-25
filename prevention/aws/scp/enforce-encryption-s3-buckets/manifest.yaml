@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Enforce Encryption for S3 Buckets
+description: This SCP requires that all Amazon S3 buckets use AES256 encryption in an AWS Account.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

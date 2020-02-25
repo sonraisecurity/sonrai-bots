@@ -1,0 +1,85 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:CreateNatGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:DeleteNatGateway",
+        "ec2:AttachInternetGateway",
+        "ec2:DeleteInternetGateway",
+        "ec2:DetachInternetGateway",
+        "ec2:CreateClientVpnRoute",
+        "ec2:AttachVpnGateway",
+        "ec2:DisassociateClientVpnTargetNetwork",
+        "ec2:DeleteClientVpnEndpoint",
+        "ec2:DeleteVpcPeeringConnection",
+        "ec2:AcceptVpcPeeringConnection",
+        "ec2:CreateNatGateway",
+        "ec2:ModifyClientVpnEndpoint",
+        "ec2:CreateVpnConnectionRoute",
+        "ec2:RevokeClientVpnIngress",
+        "ec2:RejectVpcPeeringConnection",
+        "ec2:DetachVpnGateway",
+        "ec2:DeleteVpnConnectionRoute",
+        "ec2:CreateClientVpnEndpoint",
+        "ec2:AuthorizeClientVpnIngress",
+        "ec2:DeleteVpnGateway",
+        "ec2:TerminateClientVpnConnections",
+        "ec2:DeleteClientVpnRoute",
+        "ec2:ModifyVpcPeeringConnectionOptions",
+        "ec2:CreateVpnGateway",
+        "ec2:DeleteNatGateway",
+        "ec2:DeleteVpnConnection",
+        "ec2:CreateVpcPeeringConnection",
+        "ec2:CreateVpnConnection"
+      ],
+      "Resource": "*",
+      "Effect": "Deny"
+    },
+    {
+      "Action": [
+        "directconnect:CreatePrivateVirtualInterface",
+        "directconnect:DeleteBGPPeer",
+        "directconnect:DeleteLag",
+        "directconnect:AssociateHostedConnection",
+        "directconnect:CreateInterconnect",
+        "directconnect:CreatePublicVirtualInterface",
+        "directconnect:CreateLag",
+        "directconnect:CreateDirectConnectGateway",
+        "directconnect:AssociateVirtualInterface",
+        "directconnect:AllocateConnectionOnInterconnect",
+        "directconnect:AssociateConnectionWithLag",
+        "directconnect:AllocatePrivateVirtualInterface",
+        "directconnect:DeleteInterconnect",
+        "directconnect:AllocateHostedConnection",
+        "directconnect:DeleteDirectConnectGateway",
+        "directconnect:DeleteVirtualInterface",
+        "directconnect:DeleteDirectConnectGatewayAssociation",
+        "directconnect:CreateDirectConnectGatewayAssociation",
+        "directconnect:DeleteConnection",
+        "directconnect:CreateBGPPeer",
+        "directconnect:AllocatePublicVirtualInterface",
+        "directconnect:CreateConnection"
+      ],
+      "Resource": "*",
+      "Effect": "Deny"
+    },
+    {
+      "Action": [
+        "globalaccelerator:DeleteListener",
+        "globalaccelerator:DeleteAccelerator",
+        "globalaccelerator:UpdateListener",
+        "globalaccelerator:UpdateAccelerator",
+        "globalaccelerator:CreateEndpointGroup",
+        "globalaccelerator:UpdateAcceleratorAttributes",
+        "globalaccelerator:UpdateEndpointGroup",
+        "globalaccelerator:CreateListener",
+        "globalaccelerator:CreateAccelerator",
+        "globalaccelerator:DeleteEndpointGroup"
+      ],
+      "Resource": "*",
+      "Effect": "Deny"
+    }
+  ]
+}

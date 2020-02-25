@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Lock Internet Access in VPCs
+description: This SCP prevents users or roles in any affected account from changing the configuration of your Amazon EC2 virtual private clouds (VPCs) to grant them direct access to the internet. It doesn't block existing direct access or any access that routes through your on-premises network environment.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

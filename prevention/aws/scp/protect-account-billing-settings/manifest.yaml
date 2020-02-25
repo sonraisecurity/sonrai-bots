@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Protect Account and Billing Settings
+description: This SCP prevents users or roles in any affected account from modifying the account and billing settings, either directly as a command or through the console.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

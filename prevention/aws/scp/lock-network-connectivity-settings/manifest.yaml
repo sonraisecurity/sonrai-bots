@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Lock Network Connectivity Settings
+description: This SCP restricts IAM principals in an AWS account from changing creating, updating or deleting settings for Internet Gateways, NAT Gateways, VPC Peering, VPN Gateways, Client VPNs, Direct Connect and Global Accelerator.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

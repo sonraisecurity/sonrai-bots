@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": "*",
+      "Effect": "Deny",
+      "Condition": {
+        "StringNotEquals": {
+          "s3:x-amz-server-side-encryption": "AES256"
+        }
+      }
+    },
+    {
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": "*",
+      "Effect": "Deny",
+      "Condition": {
+        "Bool": {
+          "s3:x-amz-server-side-encryption": false
+        }
+      }
+    }
+  ]
+}

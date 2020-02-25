@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Require MFA to Stop EC2 Instances
+description: This SCP requires that multi-factor authentication (MFA) is enabled before a principal or root user can stop an Amazon EC2 instance.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

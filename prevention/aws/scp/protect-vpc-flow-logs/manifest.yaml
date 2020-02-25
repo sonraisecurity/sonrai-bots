@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Protect Amazon VPC Flow Logs
+description: This SCP prevents users or roles in any affected account from deleting Amazon EC2 flow logs or CloudWatch log groups or log streams.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

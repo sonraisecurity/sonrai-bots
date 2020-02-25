@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Protect KMS Keys
+description: This SCP prevents users or roles in any affected account from deleting KMS keys, either directly as a command or through the console.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

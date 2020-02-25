@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Protect Amazon CloudWatch
+description: This SCP prevents users or roles in any affected account from running any of the CloudWatch commands that could delete or change your dashboards or alarms.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

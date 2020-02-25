@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: No New IAM Users or Access Keys
+description: This SCP restricts IAM principals from creating new IAM users or IAM Access Keys in an AWS account.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

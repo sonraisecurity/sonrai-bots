@@ -1,0 +1,17 @@
+{
+  "if": {
+    "allOf": [
+      {
+        "field": "type",
+        "equals": "Microsoft.Compute/virtualMachines/storageProfile.osDisk"
+      },
+      {
+        "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.encryptionSettings.enabled",
+        "notEquals": true
+      }
+    ]
+  },
+  "then": {
+    "effect": "deny"
+  }
+}

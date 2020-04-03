@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Ensure that RDP and SSH access is restricted from the internet
+description: This Policy ensures RDB and SSH access is restricted from the internet.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

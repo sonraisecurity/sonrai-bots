@@ -1,3 +1,4 @@
+# See CIS Microsoft Azure Benchmarks v1.1.0 - section 7.2
 version: 2020-02-11
 type: Prevention
 title: Ensure that data disks are encrypted

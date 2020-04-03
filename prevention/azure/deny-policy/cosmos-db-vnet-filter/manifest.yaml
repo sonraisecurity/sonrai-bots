@@ -1,3 +1,4 @@
+# see https://github.com/Azure/azure-policy/tree/master/samples/CosmosDB/cosmos-db-vnet-filter
 version: 2020-02-11
 type: Prevention
 title: Ensure Virtual Network Filtering is enabled on Cosmos DB accounts

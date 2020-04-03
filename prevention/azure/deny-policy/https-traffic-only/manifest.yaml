@@ -1,3 +1,4 @@
+# see https://github.com/Azure/azure-policy/tree/master/samples/Storage/https-traffic-only
 version: 2020-02-11
 type: Prevention
 title: Ensure https traffic only for storage account

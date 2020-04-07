@@ -1,0 +1,9 @@
+# See CIS Microsoft Azure Benchmarks v1.1.0 - section 3.7
+version: 2020-02-11
+type: Prevention
+title: Ensure deny access to traffic from all networks for storage account
+description: This Policy ensures the default network access rule for Storage Accounts is set to deny.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

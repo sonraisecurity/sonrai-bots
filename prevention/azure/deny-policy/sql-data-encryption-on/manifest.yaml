@@ -1,0 +1,9 @@
+# See CIS Microsoft Azure Benchmarks v1.1.0 - section 4.9
+version: 2020-02-11
+type: Prevention
+title: Ensure that transparent data encryption is set to on
+description: This Policy ensures transparent data encryption can not be disabled.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

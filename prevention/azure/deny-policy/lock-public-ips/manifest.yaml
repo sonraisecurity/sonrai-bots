@@ -1,0 +1,8 @@
+version: 2020-02-11
+type: Prevention
+title: Ensure there are no Public IPs created
+description: This Policy ensures no Public IP addresses are created.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

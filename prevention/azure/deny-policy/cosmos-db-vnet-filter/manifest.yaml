@@ -1,0 +1,9 @@
+# see https://github.com/Azure/azure-policy/tree/master/samples/CosmosDB/cosmos-db-vnet-filter
+version: 2020-02-11
+type: Prevention
+title: Ensure Virtual Network Filtering is enabled on Cosmos DB accounts
+description: This Policy ensures Virtual Network Filtering is enabled on all Cosmos DB accounts.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

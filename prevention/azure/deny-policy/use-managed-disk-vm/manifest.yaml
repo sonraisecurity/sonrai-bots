@@ -1,0 +1,9 @@
+# see https://github.com/Azure/azure-policy/tree/master/samples/Compute/use-managed-disk-vm
+version: 2020-02-11
+type: Prevention
+title: Ensure that create VM using Managed Disk
+description: This Policy ensures the VM's are created using managed disks.
+cloud: Azure
+operation: ATTACH_AZURE_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

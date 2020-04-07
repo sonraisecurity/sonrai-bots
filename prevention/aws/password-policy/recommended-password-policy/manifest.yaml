@@ -1,0 +1,8 @@
+version: 2020-04-02
+type: Prevention
+title: Recommended Account Password Policy
+description: This Password Policy requires that passwords are at least 13 characters long, IAM users may reset their own passwords, passwords expire after no more than 90 days, passwords may not be reused after they expire, and that they contain at least one symbol, lowercase character, and number.
+cloud: AWS
+operation: UPDATE_AWS_PASSWORD_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

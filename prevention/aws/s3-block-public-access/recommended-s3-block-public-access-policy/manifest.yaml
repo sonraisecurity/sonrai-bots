@@ -1,0 +1,8 @@
+version: 2020-04-07
+type: Prevention
+title: S3 Block Public Access (Account)
+description: This S3 Block Public Access Policy blocks public access in Amazon S3 resources for an account.
+cloud: AWS
+operation: UPDATE_AWS_S3_BLOCK_PUBLIC_ACCESS_POLICY
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

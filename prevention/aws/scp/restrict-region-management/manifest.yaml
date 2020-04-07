@@ -1,0 +1,9 @@
+# See https://aws.amazon.com/blogs/security/setting-permissions-to-enable-accounts-for-upcoming-aws-regions/
+version: 2020-02-11
+type: Prevention
+title: Restrict using new Regions
+description: This SCP restricts access to enable and disable Regions for all principals across all accounts in your organization or organizational unit.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

@@ -1,0 +1,9 @@
+# See https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_example-scps.html#example-scp-deny-region
+version: 2020-02-11
+type: Prevention
+title: Restrict acces based on the requested Region
+description: This SCP denies access to any operations outside of the listed Regions, except for actions in the listed services.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

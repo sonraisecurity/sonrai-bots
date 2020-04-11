@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/19ae0fbc-55ee-4b35-a7dd-2e6236899912
 # see https://github.com/Azure/azure-policy/tree/master/samples/Compute/use-managed-disk-vm
 version: 2020-02-11
 type: Prevention

@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/5e5a0fd2-d4dd-47b8-8f38-9135fedfb32e
 # See https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_example-scps.html#example-scp-deny-region
 version: 2020-02-11
 type: Prevention

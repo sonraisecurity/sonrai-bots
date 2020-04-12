@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/b7fced1a-0e54-47c8-98db-f4db5db70888
 # see https://github.com/Azure/azure-policy/tree/master/samples/CosmosDB/cosmos-db-vnet-filter
 version: 2020-02-11
 type: Prevention

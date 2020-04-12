@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/7274184e-fc91-4c72-9f92-797a21ae3752
 # see https://github.com/Azure/azure-policy/tree/master/samples/Storage/storage-account-file-encryption
 version: 2020-02-11
 type: Prevention

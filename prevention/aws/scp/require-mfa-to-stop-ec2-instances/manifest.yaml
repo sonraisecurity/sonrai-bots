@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/18787f7c-352d-4ed6-96ff-09f19e4cda3d
 version: 2020-02-11
 type: Prevention
 title: Require MFA to Stop EC2 Instances

@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/abe4d1f8-9452-4d57-a8ab-8fe14dffc3be
 version: 2020-02-11
 type: Prevention
 title: Enforce Encryption for S3 Buckets

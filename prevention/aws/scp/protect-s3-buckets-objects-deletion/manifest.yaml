@@ -1,3 +1,4 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/d79f2465-fd8a-43ac-9be6-99f22d766fd6
 version: 2020-02-11
 type: Prevention
 title: Protect S3 Buckets or Objects from deletion

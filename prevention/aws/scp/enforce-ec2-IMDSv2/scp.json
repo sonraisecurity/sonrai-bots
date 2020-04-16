@@ -10,7 +10,7 @@
     {
       "StringNotEquals":
       {
-        "ec2:MetadataHttpTokens": "required",
+        "ec2:MetadataHttpTokens": "required"
       }
     }
   }

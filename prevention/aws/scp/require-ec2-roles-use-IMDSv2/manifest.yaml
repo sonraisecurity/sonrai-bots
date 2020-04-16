@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/45870b44-7ffa-11ea-bc55-0242ac130003
+version: 2020-04-16
+type: Prevention
+title: Require EC2 Roles Use IMDSv2
+description: This SCP will require role credentials for an EC2 instance to have been retrieved using the IMDSv2. This policy can be applied generally to entire account as it only impacts the principals when they have the ec2:RoleDelivery variable associated with them, which will only happen on EC2 instances.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

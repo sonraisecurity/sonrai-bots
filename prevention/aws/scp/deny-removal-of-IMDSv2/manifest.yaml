@@ -2,7 +2,7 @@
 version: 2020-04-16
 type: Prevention
 title: Deny Removal of IMDSv2
-description: This SCP denies the ability for a user to remove the enforcement of IMDSv2 on EC2 instances.
+description: This SCP denies the ability for someone to remove the enforcement of IMDSv2 on EC2 instances.
 cloud: AWS
 operation: ATTACH_AWS_SCP
 authorName: Sonrai Security

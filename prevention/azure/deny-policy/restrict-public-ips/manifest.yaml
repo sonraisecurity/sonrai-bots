@@ -1,8 +1,8 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/6394d2fb-53e9-4c82-8119-c484774ed6c1
 version: 2020-02-11
 type: Prevention
-title: Ensure there are no Public IPs created
-description: This Policy ensures no Public IP addresses are created.
+title: Ensure network interfaces do are not created with Public IPs
+description: This policy denies network interfaces which are configured with any public IP.
 cloud: Azure
 operation: ATTACH_AZURE_POLICY
 authorName: Sonrai Security

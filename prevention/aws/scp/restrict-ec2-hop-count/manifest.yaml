@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/1ca0d158-7ffd-11ea-bc55-0242ac130003
+version: 2020-04-16
+type: Prevention
+title: Restrict EC2 Hop Count to 1
+description: This SCP strengthens the use of IMDSv2 by restricting the EC2 hop count to 1.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

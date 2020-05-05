@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/b1e703ea-7ff8-11ea-bc55-0242ac130003
+version: 2020-04-16
+type: Prevention
+title: Enforce IMDSv2 for EC2 Instances
+description: This SCP ensures that EC2 instances can only be created if you enforce that they use IMDSv2. This will not impact existing EC2 instances.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

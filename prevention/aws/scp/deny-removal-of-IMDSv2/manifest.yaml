@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/bd72af28-7ffa-11ea-bc55-0242ac130003
+version: 2020-04-16
+type: Prevention
+title: Deny Removal of IMDSv2
+description: This SCP denies the ability for someone to remove the enforcement of IMDSv2 on EC2 instances.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

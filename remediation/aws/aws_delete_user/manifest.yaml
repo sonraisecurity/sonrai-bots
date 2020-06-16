@@ -1,0 +1,2 @@
+python:
+  entrypoint: aws_delete_user.deleteUser#run

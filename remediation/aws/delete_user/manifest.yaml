@@ -1,0 +1,12 @@
+version: 2020-04-02
+type: Remediation
+title: Delete AWS User
+cloud: AWS
+operation: ExecutePython
+author:
+  name: Sonrai Security
+  email: info@sonraisecurity.com
+# Python specific
+python:
+  # Can be a module path like mymodule#main as well
+  entrypoint: aws.remove_user_permissions.deleteUser#run

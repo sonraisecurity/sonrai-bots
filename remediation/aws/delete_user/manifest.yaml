@@ -9,4 +9,4 @@ author:
 # Python specific
 python:
   # Can be a module path like mymodule#main as well
-  entrypoint: aws.remove_user_permissions.deleteUser#run
+  entrypoint: aws.delete_user.deleteUser#run

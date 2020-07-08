@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/fffd8674-bd4e-11ea-b3de-0242ac130004
+version: 2020-04-02
+type: Remediation
+title: Delete role
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+# Python specific
+python:
+  # Can be a module path like mymodule#main as well
+  entrypoint: aws.delete_role.deleteRole#run

@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/847ac6f2-bfb4-11ea-b3de-0242ac130004
+version: 2020-04-02
+type: Remediation
+title: Delete Managed Identity
+cloud: Azure
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+# Python specific
+python:
+  # Can be a module path like mymodule#main as well
+  entrypoint: az.delete_managed_identity.deleteManagedIdentity#run

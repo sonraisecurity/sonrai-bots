@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/1137b248-bd4f-11ea-b3de-0242ac130004
+version: 2020-04-02
+type: Remediation
+title: Update Managed Policy
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+# Python specific
+python:
+  # Can be a module path like mymodule#main as well
+  entrypoint: aws.update_managed_policy.updateManagedPolicy#run

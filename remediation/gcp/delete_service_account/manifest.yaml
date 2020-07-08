@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/91b9fa36-bfb4-11ea-b3de-0242ac130004
+version: 2020-04-02
+type: Remediation
+title: Delete GCP User
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+# Python specific
+python:
+  # Can be a module path like mymodule#main as well
+  entrypoint: gcp.delete_service_account.deleteServiceAccount#run

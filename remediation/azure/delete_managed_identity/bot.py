@@ -1,4 +1,4 @@
-from sonrai.az import ManagedIdentityClient
+from sonrai.platform.azure.client import ManagedIdentityClient
 
 
 def run(ctx):

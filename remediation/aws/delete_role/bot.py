@@ -1,11 +1,11 @@
-import sonrai.aws
+import sonrai.platform.aws.arn
 
 def run(ctx):
 
     iam_client = ctx.get_client().get('iam')
 
     # Get role name
-    resource_arn = sonrai.aws.parse_arn(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \

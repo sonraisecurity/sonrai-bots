@@ -1,4 +1,4 @@
-import sonrai.aws
+import sonrai.platform.aws.arn
 
 import botocore
 import json
@@ -13,7 +13,7 @@ def run(ctx):
         policy_to_apply = json.dumps(data['policy'])
 
     # Get role name
-    resource_arn = sonrai.aws.parse_arn(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
     policy_arn = ctx.resource_id
     policy_name = resource_arn \
         .assert_service("iam") \
@@ -36,7 +36,7 @@ def run(ctx):
         iam_client.create_policy(PolicyName=policy_name, PolicyDocument=policy_to_apply)
 
     # Attach to identity
-    identity = sonrai.aws.parse_arn(data['identity'])
+    identity = sonrai.platform.aws.arn.parse(data['identity'])
 
     if identity.resource_type == 'user':
         iam_client.attach_user_policy(UserName=identity.resource, PolicyArn=policy_arn)

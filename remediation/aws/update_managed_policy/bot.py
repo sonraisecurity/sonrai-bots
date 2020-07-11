@@ -1,4 +1,4 @@
-import sonrai.aws
+import sonrai.platform.aws.arn
 import json
 
 
@@ -11,7 +11,7 @@ def run(ctx):
         policy_to_apply = json.dumps(data['policy'])
 
     # Get role name
-    resource_arn = sonrai.aws.parse_arn(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
     policy_arn = ctx.resource_id
     resource_arn \
     .assert_service("iam") \

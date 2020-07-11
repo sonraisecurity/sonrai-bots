@@ -1,12 +1,12 @@
 import botocore
-import sonrai.aws
+import sonrai.platform.aws.arn
 
 
 def run(ctx):
     # Create AWS identity and access management client
     iam_client = ctx.get_client().get('iam')
 
-    resource_arn = sonrai.aws.parse_arn(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
     user_name = resource_arn \
         .assert_service("iam") \
         .assert_type("user") \

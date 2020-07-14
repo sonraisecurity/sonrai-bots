@@ -1,3 +1,5 @@
+import logging
+
 import sonrai.platform.aws.arn
 import json
 
@@ -5,7 +7,7 @@ import json
 def run(ctx):
     # Get policy from config
     config = ctx.config
-    data = config.get_unstructured_data()
+    data = config.get('data')
     policy = None
     if "policy" in data:
         policy = json.dumps(data['policy'])
@@ -21,4 +23,5 @@ def run(ctx):
     iam_client = ctx.get_client().get('iam')
 
     # Update trust policy
+    logging.info('Update trust policy on role: {}'.format(ctx.resource_id))
     iam_client.update_assume_role_policy(RoleName=role_name, PolicyDocument=policy)

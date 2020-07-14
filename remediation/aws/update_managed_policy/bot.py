@@ -1,3 +1,5 @@
+import logging
+
 import sonrai.platform.aws.arn
 import json
 
@@ -5,7 +7,7 @@ import json
 def run(ctx):
     # Get policy from config
     config = ctx.config
-    data = config.get_unstructured_data()
+    data = config.get('data')
     policy_to_apply = None
     if "policy" in data:
         policy_to_apply = json.dumps(data['policy'])
@@ -29,4 +31,5 @@ def run(ctx):
         iam_client.delete_policy_version(PolicyArn=policy_arn, VersionId=version_list[4]['VersionId'])
 
 
+    logging.info('Updating policy: {}'.format(ctx.resource_id))
     iam_client.create_policy_version(PolicyArn=policy_arn, PolicyDocument=policy_to_apply, SetAsDefault=True)

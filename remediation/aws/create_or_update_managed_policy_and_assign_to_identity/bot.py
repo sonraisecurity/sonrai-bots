@@ -2,15 +2,19 @@ import sonrai.platform.aws.arn
 
 import botocore
 import json
+import logging
 
 
 def run(ctx):
-    # Get policy from config
+    # Get data for bot from config
     config = ctx.config
-    data = config.get_unstructured_data()
+    data = config.get('data')
     policy_to_apply = None
     if "policy" in data:
         policy_to_apply = json.dumps(data['policy'])
+    # Attach to identity
+    identity_arn = data['identity']
+    identity = sonrai.platform.aws.arn.parse(data['identity'])
 
     # Get role name
     resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
@@ -19,6 +23,8 @@ def run(ctx):
         .assert_service("iam") \
         .assert_type("policy") \
         .resource
+
+    logging.info('Creating or updating policy: {} and attaching to identity: {}'.format(policy_arn, identity_arn))
 
     # Create AWS identity and access management client
     iam_client = ctx.get_client().get('iam')
@@ -35,8 +41,6 @@ def run(ctx):
     except botocore.exceptions.ClientError as error:
         iam_client.create_policy(PolicyName=policy_name, PolicyDocument=policy_to_apply)
 
-    # Attach to identity
-    identity = sonrai.platform.aws.arn.parse(data['identity'])
 
     if identity.resource_type == 'user':
         iam_client.attach_user_policy(UserName=identity.resource, PolicyArn=policy_arn)

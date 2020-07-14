@@ -1,3 +1,5 @@
+import logging
+
 import sonrai.platform.aws.arn
 
 def run(ctx):
@@ -24,4 +26,5 @@ def run(ctx):
     for attached_policy in role_attached_policies['AttachedPolicies']:
         iam_client.detach_role_policy(RoleName=role_name, PolicyArn=attached_policy['PolicyArn'])
 
+    logging.info('deleting role: {}'.format(ctx.resource_id))
     iam_client.delete_role(RoleName=role_name)

@@ -1,4 +1,5 @@
 import botocore
+import logging
 import sonrai.platform.aws.arn
 
 
@@ -65,4 +66,5 @@ def run(ctx):
         iam_client.remove_user_from_group(GroupName=group['GroupName'], UserName=user_name)
 
     # Step 10)
+    logging.info('deleted user: {}'.format(ctx.resource_id))
     iam_client.delete_user(UserName=user_name)

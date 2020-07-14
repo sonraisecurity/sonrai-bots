@@ -1,5 +1,6 @@
 import sonrai.platform.aws.arn
 
+import logging
 
 def run(ctx):
     # Create AWS identity and access management client
@@ -12,9 +13,11 @@ def run(ctx):
         .assert_type("user") \
         .resource
 
-    data = config.get_unstructured_data()
+    data = config.get('data')
     access_key_id = None
-    if "access_key_id" in data:
-        access_key_id = str(data['access_key_id'])
+    if "accessKeyId" in data:
+        access_key_id = str(data['accessKeyId'])
+
+    logging.info('deleting accesskey: {} for user: {}'.format(access_key_id, ctx.resource_id))
 
     iam_client.delete_access_key(UserName=user_name, AccessKeyId=access_key_id)

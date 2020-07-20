@@ -7,7 +7,7 @@ import json
 def run(ctx):
     # Get policy from config
     config = ctx.config
-    data = config.get('data')
+    data = config.get('data').get('data')
     policy_to_apply = None
     if "policy" in data:
         policy_to_apply = json.dumps(data['policy'])

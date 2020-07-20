@@ -3,3 +3,4 @@
 __pycache__/
 docker-compose.yml
 httpd.conf
+testing_instructions.conf

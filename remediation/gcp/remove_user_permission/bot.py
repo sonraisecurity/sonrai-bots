@@ -4,7 +4,7 @@ import logging
 def run(ctx):
     # Get data for bot from config
     config = ctx.config
-    data = config.get('data')
+    data = config.get('data').get('data')
     organization_id = data.get('organizationId')
     username = data.get('username')
 

@@ -6,7 +6,7 @@ def run(ctx):
 
     # Get data
     config = ctx.config
-    data = config.get('data')
+    data = config.get('data').get('data')
     subscription_id = data.get('subscriptionId')
     object_id = data.get('objectId')
 

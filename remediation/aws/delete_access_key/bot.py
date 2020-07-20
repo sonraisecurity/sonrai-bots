@@ -13,7 +13,7 @@ def run(ctx):
         .assert_type("user") \
         .resource
 
-    data = config.get('data')
+    data = config.get('data').get('data')
     access_key_id = None
     if "accessKeyId" in data:
         access_key_id = str(data['accessKeyId'])

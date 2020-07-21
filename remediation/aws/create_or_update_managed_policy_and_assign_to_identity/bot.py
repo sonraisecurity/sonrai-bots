@@ -13,12 +13,12 @@ def run(ctx):
     if "policy" in data:
         policy_to_apply = json.dumps(data['policy'])
     # Attach to identity
-    identity_arn = data['identity']
-    identity = sonrai.platform.aws.arn.parse(data['identity'])
+    identity_arn = data['resourceId']
+    identity = sonrai.platform.aws.arn.parse(data['resourceId'])
 
     # Get role name
-    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
-    policy_arn = ctx.resource_id
+    resource_arn = sonrai.platform.aws.arn.parse(data['policyResourceId'])
+    policy_arn = data['policyResourceId']
     policy_name = resource_arn \
         .assert_service("iam") \
         .assert_type("policy") \

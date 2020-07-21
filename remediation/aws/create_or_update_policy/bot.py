@@ -13,8 +13,8 @@ def run(ctx):
         policy_to_apply = json.dumps(data['policy'])
 
     # Get role name
-    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
-    policy_arn = ctx.resource_id
+    resource_arn = sonrai.platform.aws.arn.parse(data['policyResourceId'])
+    policy_arn = data['policyResourceId']
     resource_arn \
     .assert_service("iam") \
     .assert_type("policy") \
@@ -31,5 +31,5 @@ def run(ctx):
         iam_client.delete_policy_version(PolicyArn=policy_arn, VersionId=version_list[4]['VersionId'])
 
 
-    logging.info('Updating policy: {}'.format(ctx.resource_id))
+    logging.info('Updating policy: {}'.format(policy_arn))
     iam_client.create_policy_version(PolicyArn=policy_arn, PolicyDocument=policy_to_apply, SetAsDefault=True)

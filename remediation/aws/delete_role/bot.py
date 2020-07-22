@@ -6,8 +6,14 @@ def run(ctx):
 
     iam_client = ctx.get_client().get('iam')
 
+    # Get data
+    policy_evidence = ctx.get_evidence_policy()
+    data = policy_evidence.get('data').get('Roles').get('items')
+    if data:
+        data = data[0]
+
     # Get role name
-    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \
@@ -26,5 +32,5 @@ def run(ctx):
     for attached_policy in role_attached_policies['AttachedPolicies']:
         iam_client.detach_role_policy(RoleName=role_name, PolicyArn=attached_policy['PolicyArn'])
 
-    logging.info('deleting role: {}'.format(ctx.resource_id))
+    logging.info('deleting role: {}'.format(data['resourceId']))
     iam_client.delete_role(RoleName=role_name)

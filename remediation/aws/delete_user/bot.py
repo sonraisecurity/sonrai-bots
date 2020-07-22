@@ -7,7 +7,12 @@ def run(ctx):
     # Create AWS identity and access management client
     iam_client = ctx.get_client().get('iam')
 
-    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
+    policy_evidence = ctx.get_evidence_policy()
+    data = policy_evidence.get('data').get('Users').get('items')
+    if data:
+        data = data[0]
+
+    resource_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
     user_name = resource_arn \
         .assert_service("iam") \
         .assert_type("user") \
@@ -66,5 +71,5 @@ def run(ctx):
         iam_client.remove_user_from_group(GroupName=group['GroupName'], UserName=user_name)
 
     # Step 10)
-    logging.info('deleted user: {}'.format(ctx.resource_id))
+    logging.info('deleted user: {}'.format(data['resourceId']))
     iam_client.delete_user(UserName=user_name)

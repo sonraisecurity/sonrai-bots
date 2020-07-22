@@ -7,13 +7,14 @@ import json
 def run(ctx):
     # Get policy from config
     config = ctx.config
-    data = config.get('data').get('data')
+    analytic_evidence = ctx.get_analytic_evidence()
+    data = analytic_evidence.get('data')
     policy = None
     if "policy" in data:
         policy = json.dumps(data['policy'])
 
     # Get role name
-    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
+    resource_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \
@@ -23,5 +24,5 @@ def run(ctx):
     iam_client = ctx.get_client().get('iam')
 
     # Update trust policy
-    logging.info('Update trust policy on role: {}'.format(ctx.resource_id))
+    logging.info('Update trust policy on role: {}'.format(data['resourceId']))
     iam_client.update_assume_role_policy(RoleName=role_name, PolicyDocument=policy)

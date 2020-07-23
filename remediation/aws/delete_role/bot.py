@@ -6,14 +6,8 @@ def run(ctx):
 
     iam_client = ctx.get_client().get('iam')
 
-    # Get data
-    policy_evidence = ctx.get_evidence_policy()
-    data = policy_evidence.get('data').get('Roles').get('items')
-    if data:
-        data = data[0]
-
     # Get role name
-    resource_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
+    resource_arn = sonrai.platform.aws.arn.parse(ctx.resource_id)
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \

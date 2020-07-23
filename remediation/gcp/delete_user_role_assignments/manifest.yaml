@@ -1,8 +1,0 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/9709d36c-bfb4-11ea-b3de-0242ac130004
-version: 2020-07-10
-type: Remediation
-title: Remove User Permissions
-cloud: GCP
-operation: EXECUTE_PYTHON_SCRIPT
-authorName: Sonrai Security
-authorEmail: info@sonraisecurity.com

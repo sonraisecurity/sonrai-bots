@@ -7,7 +7,6 @@ def run(ctx):
     # Create AWS identity and access management client
     iam_client = ctx.get_client().get('iam')
 
-    policy_evidence = ctx.get_evidence_policy()
     resource_id = ctx.resource_id
     
     resource_arn = sonrai.platform.aws.arn.parse(resource_id)

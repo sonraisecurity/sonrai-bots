@@ -8,11 +8,9 @@ def run(ctx):
     iam_client = ctx.get_client().get('iam')
 
     policy_evidence = ctx.get_evidence_policy()
-    data = policy_evidence.get('data').get('Users').get('items')
-    if data:
-        data = data[0]
-
-    resource_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
+    resource_id = ctx.resource_id
+    
+    resource_arn = sonrai.platform.aws.arn.parse(resource_id)
     user_name = resource_arn \
         .assert_service("iam") \
         .assert_type("user") \

@@ -1,7 +1,7 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/847ac6f2-bfb4-11ea-b3de-0242ac130004
+# Built-in Sonrai Bot: srn:supersonrai::bot/0f28f989-73f0-4726-b458-02d92179d2bf
 version: 2020-07-10
 type: Remediation
-title: Delete Managed Identity
+title: Delete Service Principal
 cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

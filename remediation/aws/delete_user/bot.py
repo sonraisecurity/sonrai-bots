@@ -8,7 +8,6 @@ def run(ctx):
     iam_client = ctx.get_client().get('iam')
 
     resource_id = ctx.resource_id
-    
     resource_arn = sonrai.platform.aws.arn.parse(resource_id)
     user_name = resource_arn \
         .assert_service("iam") \

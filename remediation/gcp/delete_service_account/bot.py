@@ -2,13 +2,13 @@ import logging
 
 
 def run(ctx):
-    # Get data for bot from config
-    config = ctx.config
-    data = config.get('data').get('data')
-    project = data.get('project')
-    email = data.get('email')
+
+    resource_id = ctx.resource_id
+    project = resource_id.split('/')[4]
+    service_account = resource_id.split('/')[6]
 
     service = ctx.get_client().get('iam', 'v1')
 
-    logging.info('deleting service account: {} from project: {}'.format(email, project))
-    response = service.projects().serviceAccounts().delete(name='projects/{project}/serviceAccounts/'.format(project=project) + email).execute()
+    logging.info('deleting service account: {} from project: {}'.format(service_account, project))
+    response = service.projects().serviceAccounts().delete(name='projects/{project}/serviceAccounts/'.format(project=project) + service_account).execute()
+

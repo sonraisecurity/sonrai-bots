@@ -9,5 +9,5 @@ def run(ctx):
 
     graphrbac_client = ctx.get_client().get(GraphRbacManagementClient)
 
-    logging.info('deleting App registration: {}'.format(object_id))
-    graphrbac_client.applications.delete(application_object_id=object_id)
+    logging.info('deleting Service Principal: {}'.format(object_id))
+    graphrbac_client.service_principals.delete(object_id=object_id)

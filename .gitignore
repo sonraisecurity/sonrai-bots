@@ -1,6 +1,3 @@
 .DS_Store
 .idea/
 __pycache__/
-docker-compose.yml
-httpd.conf
-testing_instructions.conf

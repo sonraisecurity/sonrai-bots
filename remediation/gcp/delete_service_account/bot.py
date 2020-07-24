@@ -11,3 +11,4 @@ def run(ctx):
 
     logging.info('deleting service account: {} from project: {}'.format(service_account, project))
     response = service.projects().serviceAccounts().delete(name='projects/{project}/serviceAccounts/'.format(project=project) + service_account).execute()
+

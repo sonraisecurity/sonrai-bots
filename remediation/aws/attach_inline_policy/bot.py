@@ -32,4 +32,7 @@ def run(ctx):
         elif identity.service == 's3':
             client.put_bucket_policy(Bucket=identity.resource,ConfirmRemoveSelfBucketAccess=True, Policy=policy_to_apply)
         else:
-            logging.error('service of type {} is not supported for inline policy remediation'.format(identity.resource))
+            raise Exception('service of type {} is not supported for inline policy remediation'.format(identity.resource))
+
+    else:
+        raise Exception('Expected policyResourceId to be NA instead it was {}'.format(data['policyResourceId']))

@@ -23,7 +23,7 @@ def run(ctx):
     policy_name = resource_arn \
         .assert_service("iam") \
         .assert_type("policy") \
-        .resource
+        .name
 
     logging.info('Creating or updating policy: {} and attaching to identity: {}'.format(policy_arn, identity_arn))
 
@@ -35,11 +35,11 @@ def run(ctx):
 
     # Attach to identity
     if identity.resource_type == 'user':
-        iam_client.attach_user_policy(UserName=identity.resource, PolicyArn=policy_arn)
+        iam_client.attach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
     elif identity.resource_type == 'group':
-        iam_client.attach_group_policy(GroupName=identity.resource, PolicyArn=policy_arn)
+        iam_client.attach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
     elif identity.resource_type == 'role':
-        iam_client.attach_role_policy(RoleName=identity.resource, PolicyArn=policy_arn)
+        iam_client.attach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
     else:
         raise Exception('Expected identity to be of resource type (user/role/group)')
 
@@ -62,16 +62,16 @@ def create_or_update_policy(iam_client=None, policy_arn=None, policy_name=None, 
             # Detach policy
             try:
                 if identity.resource_type == 'user':
-                    iam_client.detach_user_policy(UserName=identity.resource, PolicyArn=policy_arn)
+                    iam_client.detach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
                 elif identity.resource_type == 'group':
-                    iam_client.detach_group_policy(GroupName=identity.resource, PolicyArn=policy_arn)
+                    iam_client.detach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
                 elif identity.resource_type == 'role':
-                    iam_client.detach_role_policy(RoleName=identity.resource, PolicyArn=policy_arn)
+                    iam_client.detach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
             except Exception as error:
                 logging.error('{}'.format(error))
 
             # Remane AWS Managed policy
-            policy_name = policy_name + 'UserManaged'
+            policy_name = policy_name + 'SonraiManaged'
             policy_arn = 'arn:{}:{}:{}:{}:{}/{}'.format(resource_arn.partition,resource_arn.service,resource_arn.region,identity.account_id,resource_arn.resource_type, policy_name).replace('None', '')
             return create_or_update_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name, policy_to_apply=policy_to_apply)
 

@@ -23,7 +23,7 @@ def run(ctx):
     policy_name = resource_arn \
         .assert_service("iam") \
         .assert_type("policy") \
-        .resource
+        .name
 
     logging.info('Creating or updating policy: {} and attaching to identity: {}'.format(policy_arn, identity_arn))
 

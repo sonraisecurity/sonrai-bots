@@ -9,13 +9,10 @@ def run(ctx):
 
     resource_id = ctx.resource_id
     resource_arn = sonrai.platform.aws.arn.parse(resource_id)
-    resource = resource_arn \
+    user_name = resource_arn \
         .assert_service("iam") \
         .assert_type("user") \
-        .resource
-
-    resource_parts = resource.rsplit('/', 2)
-    user_name = resource_parts[1] if len(resource_parts) > 1 else resource_parts[0]
+        .name
 
     # Delete the user AWS ref(https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli)
 

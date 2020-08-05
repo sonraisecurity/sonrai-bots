@@ -18,7 +18,7 @@ def run(ctx):
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \
-        .resource
+        .name
 
     # Create AWS identity and access management client
     iam_client = ctx.get_client().get('iam')

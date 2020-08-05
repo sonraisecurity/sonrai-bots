@@ -8,8 +8,7 @@ import logging
 def run(ctx):
     # Get data for bot from config
     config = ctx.config
-    analytic_evidence = ctx.get_analytic_evidence()
-    data = analytic_evidence.get('data')
+    data = ctx.get_analytic_evidence()
     policy_to_apply = None
     if "policy" in data:
         policy_to_apply = json.dumps(data['policy'])

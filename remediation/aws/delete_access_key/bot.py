@@ -10,11 +10,7 @@ def run(ctx):
     user_name = None
     access_key_id = None
 
-    policy_evidence = ctx.get_evidence_policy()
-    data = policy_evidence.get('data').get('AccessKeys').get('items')
-    if data:
-        data = data[0]
-
+    data = ctx.get_evidence_policy()
     metadata_list = data.get('metadata')
 
     for metadata in metadata_list:

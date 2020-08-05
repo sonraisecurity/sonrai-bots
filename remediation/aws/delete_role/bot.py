@@ -11,7 +11,7 @@ def run(ctx):
     role_name = resource_arn \
         .assert_service("iam") \
         .assert_type("role") \
-        .resource
+        .name
 
     # https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html#roles-managingrole-deleting-api
     instance_profiles = iam_client.list_instance_profiles_for_role(RoleName=role_name)

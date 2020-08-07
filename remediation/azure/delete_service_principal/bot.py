@@ -20,7 +20,7 @@ def run(ctx):
             graphrbac_client.applications.delete(application_object_id=object_id)
             logging.info('deleting App registration: {}'.format(object_id))
         except GraphErrorException:
-            data = ctx.get_evidence_policy()
+            data = ctx.get_policy_evidence()
             metadata_list = data.get('metadata')
             resource_path = None
             has_alternative_name = None

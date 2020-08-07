@@ -10,7 +10,7 @@ def run(ctx):
     user_name = None
     access_key_id = None
 
-    data = ctx.get_evidence_policy()
+    data = ctx.get_policy_evidence()
     metadata_list = data.get('metadata')
 
     for metadata in metadata_list:

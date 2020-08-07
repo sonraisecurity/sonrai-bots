@@ -7,7 +7,7 @@ import logging
 
 def run(ctx):
     # Get data for bot from ctx
-    data_enum = ctx.get_data_enum_evidence()
+    data_enum = ctx.get_policy_evidence_data()
 
     # loop for each analytic data result
     for data in data_enum:

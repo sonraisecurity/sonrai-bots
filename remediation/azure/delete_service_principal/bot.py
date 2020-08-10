@@ -11,7 +11,6 @@ def run(ctx):
     graphrbac_client = ctx.get_client().get(GraphRbacManagementClient)
     hasMatch = False
 
-
     for object in graphrbac_client.service_principals.list():
 
         if object.object_id == object_id and object.service_principal_type == 'Application':

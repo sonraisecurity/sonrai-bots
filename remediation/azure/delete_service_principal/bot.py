@@ -23,3 +23,5 @@ def run(ctx):
             if object.alternative_names[0] == 'isExplicit=True':
                 managed_identity_client.delete(object_path=object.alternative_names[1])
                 break
+
+                

@@ -1,7 +1,7 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/0f28f989-73f0-4726-b458-02d92179d2bf
+# Built-in Sonrai Bot: srn:supersonrai::bot/99b03aaf-31ad-4c6d-8399-941ed23ad5bf
 version: 2020-07-10
 type: Remediation
-title: Delete Service Principal
+title: Remove User Permissions
 cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

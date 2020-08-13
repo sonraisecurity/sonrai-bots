@@ -1,7 +1,7 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/99b03aaf-31ad-4c6d-8399-941ed23ad5bf
 version: 2020-07-10
 type: Remediation
-title: Remove User Permissions
+title: Delete Identity
 cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

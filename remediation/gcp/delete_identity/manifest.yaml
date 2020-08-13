@@ -1,7 +1,7 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/9709d36c-bfb4-11ea-b3de-0242ac130004
+# Built-in Sonrai Bot: srn:supersonrai::bot/51d6a4e0-51bd-4f41-9bcb-04afbe39a2c5
 version: 2020-07-10
 type: Remediation
-title: Remove User Permissions
+title: Delete Identity
 cloud: GCP
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

@@ -6,3 +6,4 @@ cloud: GCP
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
+remediationType: DELETE_IDENTITY

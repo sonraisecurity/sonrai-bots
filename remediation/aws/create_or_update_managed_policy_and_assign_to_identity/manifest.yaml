@@ -6,5 +6,6 @@ cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
+remediationType: UPDATE_POLICY
 python:
   entrypoint: "bot#run"

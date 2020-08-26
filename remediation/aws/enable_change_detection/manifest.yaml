@@ -4,4 +4,5 @@ type: Remediation
 title: Enable change detection
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
+cloud: AWS
 authorEmail: info@sonraisecurity.com

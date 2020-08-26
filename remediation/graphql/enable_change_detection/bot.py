@@ -9,7 +9,7 @@ def run(ctx):
 
     # GraphQL query to enable change detection on resource with the SRN specified
     query = '''
-        mutation TurnOnCRM($srn: String!) {
+        mutation EnableChangeDetection($srn: String!) {
           setMonitor(
             monitorStatusBySrn: [
               {

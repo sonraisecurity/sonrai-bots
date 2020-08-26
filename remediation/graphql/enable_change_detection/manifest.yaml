@@ -2,7 +2,6 @@
 version: 2020-08-25
 type: Remediation
 title: Enable change detection
-cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com

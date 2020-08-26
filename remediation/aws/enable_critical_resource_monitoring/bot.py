@@ -7,9 +7,9 @@ def run(ctx):
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
 
-    # GraphQL query to enable change detection on resource with the specified SRN
+    # GraphQL query to enable critical resource monitoring (CRM) on the resource with the specified SRN
     query = '''
-        mutation EnableChangeDetection($srn: String!) {
+        mutation EnableCriticalResourceMonitoring($srn: String!) {
           setMonitor(
             monitorStatusBySrn: [
               {
@@ -25,6 +25,6 @@ def run(ctx):
     '''
     variables = {"srn": object_srn}
 
-    # Enable change detection
-    logging.info('enabling change detection on: {}'.format(object_srn))
+    # Enable CRM
+    logging.info('enabling critical resource monitoring on: {}'.format(object_srn))
     graphql_client.query(query, variables)

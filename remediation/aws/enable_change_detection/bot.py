@@ -28,7 +28,3 @@ def run(ctx):
     # Enable change detection
     logging.info('enabling change detection on: {}'.format(object_srn))
     graphql_client.query(query, variables)
-
-
-
-

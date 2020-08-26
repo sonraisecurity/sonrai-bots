@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: dc9c1418-1ee0-4725-a6fb-936bd027bd70
+version: 2020-08-25
+type: Remediation
+title: Enable critical resource monitoring
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: AWS
+authorEmail: info@sonraisecurity.com

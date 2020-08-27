@@ -1,8 +1,0 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/f28edc97-4b99-4d2f-a7e6-dacd44897770
-version: 2020-08-25
-type: Remediation
-title: Enable change detection
-operation: EXECUTE_PYTHON_SCRIPT
-authorName: Sonrai Security
-cloud: AWS
-authorEmail: info@sonraisecurity.com

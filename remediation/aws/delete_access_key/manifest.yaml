@@ -6,4 +6,3 @@ cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
-remediationType: DELETE_ACCESS_KEY

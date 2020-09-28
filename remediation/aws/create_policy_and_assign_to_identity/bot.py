@@ -22,7 +22,7 @@ def run(ctx):
 
             # identity
             identity = sonrai.platform.aws.arn.parse(data['resourceId'])
-            policy_name = policy_name = data['policySrn'].split("/")[len(data['policySrn'].split("/")) - 1]
+            policy_name = data['policySrn'].split("/")[len(data['policySrn'].split("/")) - 1]
 
             client = ctx.get_client().get(identity.service)
 

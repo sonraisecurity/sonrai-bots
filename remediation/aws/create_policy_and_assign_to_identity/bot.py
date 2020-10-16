@@ -3,6 +3,7 @@ import sonrai.platform.aws.arn
 import botocore
 import json
 import logging
+import uuid
 
 
 def run(ctx):
@@ -21,7 +22,7 @@ def run(ctx):
 
             # identity
             identity = sonrai.platform.aws.arn.parse(data['resourceId'])
-            policy_name = identity.name
+            policy_name = data['policySrn'].split("/")[len(data['policySrn'].split("/")) - 1]
 
             client = ctx.get_client().get(identity.service)
 
@@ -53,15 +54,14 @@ def run(ctx):
                 .assert_type("policy") \
                 .name
 
-            logging.info('Creating or updating policy: {} and attaching to identity: {}'.format(policy_arn, identity_arn))
-
             # Create AWS identity and access management client
             iam_client = ctx.get_client().get('iam')
 
             # Create or update policy
-            policy_arn = create_or_update_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name, policy_to_apply=policy_to_apply, identity=identity, resource_arn=resource_arn)
+            policy_arn = create_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name, policy_to_apply=policy_to_apply, identity=identity, resource_arn=resource_arn)
 
             # Attach to identity
+            logging.info('Attaching policy: {} to identity: {}'.format(policy_arn,identity.name))
             if identity.resource_type == 'user':
                 iam_client.attach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
             elif identity.resource_type == 'group':
@@ -72,36 +72,31 @@ def run(ctx):
                 raise Exception('Expected identity to be of resource type (user/role/group)')
 
 
-def create_or_update_policy(iam_client=None, policy_arn=None, policy_name=None, policy_to_apply=None, identity=None, resource_arn=None):
+def create_policy(iam_client=None, policy_arn=None, policy_name=None, policy_to_apply=None, identity=None, resource_arn=None):
     try:
         policy = iam_client.get_policy(PolicyArn=policy_arn)
 
-        version_list = iam_client.list_policy_versions(PolicyArn=policy_arn)['Versions']
-        if len(version_list) == 5:
-            iam_client.delete_policy_version(PolicyArn=policy_arn, VersionId=version_list[4]['VersionId'])
+        # Detach policy
+        try:
+            if identity.resource_type == 'user':
+                iam_client.detach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
+            elif identity.resource_type == 'group':
+                iam_client.detach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
+            elif identity.resource_type == 'role':
+                iam_client.detach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
+            logging.info('Detaching policy: {} from identity: {}'.format(policy_arn, identity.name))
+        except Exception as error:
+            logging.error('{}'.format(error))
 
-        iam_client.create_policy_version(PolicyArn=policy_arn, PolicyDocument=policy_to_apply, SetAsDefault=True)
-        return policy_arn
+        # Remane AWS Managed policy
+        policy_name = policy_name + '-SonraiManaged-' + str(uuid.uuid4())
+        policy_arn = 'arn:{}:{}:{}:{}:{}/{}'.format(resource_arn.partition, resource_arn.service, resource_arn.region,identity.account_id, resource_arn.resource_type,policy_name).replace('None', '')
+        return create_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name,policy_to_apply=policy_to_apply)
+
     except botocore.exceptions.ClientError as error:
         if error.response['Error']['Code'] == 'NoSuchEntity':
             iam_client.create_policy(PolicyName=policy_name, PolicyDocument=policy_to_apply)
             return policy_arn
-        elif error.response['Error']['Code'] == 'AccessDenied':
-            # Detach policy
-            try:
-                if identity.resource_type == 'user':
-                    iam_client.detach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
-                elif identity.resource_type == 'group':
-                    iam_client.detach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
-                elif identity.resource_type == 'role':
-                    iam_client.detach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
-            except Exception as error:
-                logging.error('{}'.format(error))
-
-            # Remane AWS Managed policy
-            policy_name = policy_name + 'SonraiManaged'
-            policy_arn = 'arn:{}:{}:{}:{}:{}/{}'.format(resource_arn.partition,resource_arn.service,resource_arn.region,identity.account_id,resource_arn.resource_type, policy_name).replace('None', '')
-            return create_or_update_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name, policy_to_apply=policy_to_apply)
 
 
 

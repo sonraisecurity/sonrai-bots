@@ -1,11 +1,10 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/9e6d8698-bd4e-11ea-b3de-0242ac130004
 version: 2020-07-10
 type: Remediation
-title: Create or update managed policy and assign to identity
+title: Create policy and assign to identity
 cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
-remediationType: UPDATE_POLICY
 python:
   entrypoint: "bot#run"

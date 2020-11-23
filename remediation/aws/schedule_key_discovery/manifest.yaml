@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/c821d2f6-5a73-4127-bf89-5d687dc42b4f
+version: 2020-11-17
+type: Remediation
+title: Schedule Key Discovery
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: AWS
+authorEmail: info@sonraisecurity.com

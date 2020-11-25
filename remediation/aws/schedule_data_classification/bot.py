@@ -18,7 +18,7 @@ def run(ctx):
     #publicKey ="-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5//KZA2xGUfTV8ohNOAj\\ny6ovDomGqL8Hq5g91vaLs9HfVIR8lrviP9S30y9KWPVWZ/3LWxLzN2uz8OSfK0JS\\nYiCCGdsYa3WppsSlSgMiI9uhDXJpgyBKNoKQcyZR67Bpbtj7/lR4kT6S3kNbIDNf\\nzO/dG4G9MGmdEE0A2wUgCKLHIMH7IoL4dfaSYW4eNcW+uxwX/pnUHWtLAlUFUel1\\np/LDUhjzEuQfw7MfLGHos6h54R+MaY+6OBd+NL6LKswlDwatMK+iu7BLTz3NP6GP\\nZ53n7yKrEs8vHmmTPRTqdEq+EtTtuKmF36j9NJm/t+krhhCqcAuGtyJT2FaBP5kE\\nsQIDAQAB\\n-----END PUBLIC KEY-----"
 
     # Mutation for schedule Data Classification
-    query = ( 'mutation dc {' +
+    mutation = ( 'mutation dc {' +
                  'CreateDataClassificationConfig (input: {'+
                  ' enabled:true' +
                  ' targetSrn: "' + object_srn + '" ' +
@@ -31,11 +31,11 @@ def run(ctx):
               )
 
     if 'publicKey' in locals():
-        query += (
+        mutation += (
                     ' publicKey: "' + publicKey + '"'
         )
 
-    query += ( ' }' +
+    mutation += ( ' }' +
                '}){srn}' +
                '}'
               )
@@ -45,4 +45,4 @@ def run(ctx):
 
     # Schedule Data Classification job on object_srn
     logging.info('Schedule Data Classification on: {}'.format(object_srn))
-    graphql_client.query(query, variables)
+    graphql_client.query(mutation, variables)

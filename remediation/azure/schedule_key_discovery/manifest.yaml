@@ -1,7 +1,7 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/1a72abc4-25fc-456a-bdce-b4c15f2b49a2
 version: 2020-11-17
 type: Remediation
-title: Schedule Key Discovery
+title: Schedule Key Discovery (Azure)
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: Azure

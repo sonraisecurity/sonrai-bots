@@ -21,7 +21,7 @@ def run(ctx):
 
             # identity
             identity = sonrai.platform.aws.arn.parse(data['resourceId'])
-            policy_name = "Sonrai-"identity.name
+            policy_name = "Sonrai-" + identity.name
 
             client = ctx.get_client().get(identity.service)
 

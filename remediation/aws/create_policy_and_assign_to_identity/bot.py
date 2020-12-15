@@ -89,7 +89,7 @@ def create_policy(iam_client=None, policy_arn=None, policy_name=None, policy_to_
             logging.error('{}'.format(error))
 
         # Remane AWS Managed policy
-        policy_name = policy_name + '-SonraiManaged-' + str(uuid.uuid4())
+        policy_name = "Sonrai-"+ policy_name + '-' + str(uuid.uuid4())
         policy_arn = 'arn:{}:{}:{}:{}:{}/{}'.format(resource_arn.partition, resource_arn.service, resource_arn.region,identity.account_id, resource_arn.resource_type,policy_name).replace('None', '')
         return create_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name,policy_to_apply=policy_to_apply)
 

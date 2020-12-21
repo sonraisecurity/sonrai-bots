@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/68c4f167-5914-4004-b6c1-1afb2c06c9e1
+version: 2020-07-10
+type: Remediation
+title: Delete S3 Bucket
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+remediationType: DELETE_S3_BUCKET

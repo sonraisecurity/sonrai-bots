@@ -4,5 +4,5 @@ type: Remediation
 title: Enable critical resource monitoring
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
-cloud: ANY_CLOUD
+cloud: ANY
 authorEmail: info@sonraisecurity.com

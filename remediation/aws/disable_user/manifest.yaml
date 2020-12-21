@@ -1,0 +1,11 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/f8988237-abd1-4133-9f5a-9f84e57e4018
+version: 2020-07-10
+type: Remediation
+title: Disable AWS User
+description: |-
+  Disables an AWS IAM User by disabling their console access, and deleting all access keys.
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+remediationType: DELETE_IDENTITY

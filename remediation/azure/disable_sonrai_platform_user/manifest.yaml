@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/50b0b417-e9c5-4964-9d3c-b40d8246285b
+version: 2020-12-21
+type: Remediation
+title: Disable Sonrai Platform User
+description: This bot will disable platform  users that are no longer active members of the Active Directory Group outline in a custom ticket
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: Azure
+authorEmail: info@sonraisecurity.com

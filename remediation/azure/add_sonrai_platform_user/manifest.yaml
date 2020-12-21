@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/d84e13ce-ec82-4d1c-b4d2-7bf9dfa3e00f
+version: 2020-12-21
+type: Remediation
+title: Add Sonrai Platform User
+description: This bot will invite users to the Sonrai Platform who are members of the Active Directory Group outlined in a custom ticket
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: Azure
+authorEmail: info@sonraisecurity.com

@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/e80bd4b4-b611-4fe4-9e79-5fa457153a13
+version: 2020-12-21
+type: Prevention
+title: Deny Sensitive Privilege Escalations on an IAM User
+description: This SCP explicitly denies various AWS actions to ensure users cannot escalate their privileges.
+cloud: AWS
+operation: ATTACH_AWS_SCP
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

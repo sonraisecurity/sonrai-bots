@@ -52,10 +52,7 @@ def check_rule(rule, direction, ports_protocols):
     if ports_protocols is None or len(ports_protocols) < 1:
       return None
     
-    if (direction == 'Inbound'):
-      test_port_range = rule.destination_port_range
-    else:
-      test_port_range = rule.source_port_range
+    test_port_range = rule.destination_port_range
 
     ports = (test_port_range if test_port_range != '*' else '0-65535').split('-')
     min_rule_port = int(ports[0])
@@ -87,14 +84,9 @@ def check_rule(rule, direction, ports_protocols):
       rule2 = copy.copy(rule)
       
       org_name = rule.name
-      if (direction == 'Inbound'):
-        rule.destination_port_range = str(min_rule_port) + '-' + str((min_port - 1))
-        rule2.destination_port_range = str((max_port + 1)) + '-' + str(max_rule_port)
-        rule2.priority = rule.priority + 1
-      else:
-        rule.source_port_range = str(min_rule_port) + '-' + str((min_port - 1))
-        rule2.source_port_range = str((max_port + 1)) + '-' + str(max_rule_port)
-        rule2.priority = rule.priority + 1
+      rule.destination_port_range = str(min_rule_port) + '-' + str((min_port - 1))
+      rule2.destination_port_range = str((max_port + 1)) + '-' + str(max_rule_port)
+      rule2.priority = rule.priority + 1
 
       rule.name = org_name + '-A'
       rule2.name = org_name + '-B'

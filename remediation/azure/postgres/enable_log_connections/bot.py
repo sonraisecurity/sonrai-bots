@@ -2,7 +2,6 @@ import logging
 
 from sonrai.platform.azure.resource import ParsedResourceId
 from azure.mgmt.rdbms.postgresql import PostgreSQLManagementClient
-from msrestazure.azure_active_directory import AADTokenCredentials
 
 def run(ctx):
     resource_id = ParsedResourceId(ctx.resource_id) \

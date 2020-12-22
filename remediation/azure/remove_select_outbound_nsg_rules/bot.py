@@ -10,6 +10,7 @@ from sonrai.platform.azure.resource import ParsedResourceId
 def run(ctx):
     object_id = ctx.resource_id
 
+    logging.info('Parsing resource path for : {}'.format(object_id))
     resource_id = ParsedResourceId(object_id)
 
     client = ctx.get_client()

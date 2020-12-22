@@ -7,9 +7,9 @@ def run(ctx):
     # Create AWS S3 client
     s3_client = ctx.get_client().get('s3')
 
-    data = ctx.get_policy_evidence()
+    bucket_resource_srn = ctx.resource_srn
 
-    bucket_name = data.get('name')
+    bucket_name = bucket_resource_srn.split('/')[-1]
 
     # delete all objects from the bucket first
     response = s3_client.list_objects(Bucket=bucket_name)

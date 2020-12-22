@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/6cb555e8-857c-4708-89ed-bed22012d7b6
+version: 2020-12-22
+type: Remediation
+title: Remove all inbound ports from security group
+description: This AWS remediation bot will remove all inbound port/protocol from security group.
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

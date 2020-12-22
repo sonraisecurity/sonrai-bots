@@ -1,0 +1,11 @@
+  
+# Built-in Sonrai Bot: srn:supersonrai::bot/6279f1d7-ac98-4cb2-8d2e-48f2861c381a
+version: 2020-12-21
+type: Remediation
+title: Start EC2 Instance
+description: |-
+  Starts a EC2 instance. 
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

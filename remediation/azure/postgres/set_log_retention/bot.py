@@ -8,10 +8,12 @@ def run(ctx):
         .assert_provider('Microsoft.DBforPostgreSQL') \
         .assert_type("servers")
     client = ctx.get_client().get(PostgreSQLManagementClient, subscription_id=resource_id.subscription)
-    logging.info("[{}] Enabling log_connections".format(resource_id))
+    logging.info("[{}] Setting log_retention_days to: {}".format(resource_id, _LOG_RETENTION_DAYS))
     client.configurations.create_or_update(
         resource_group_name=resource_id.resource_group,
         server_name = resource_id.name,
         configuration_name='log_retention_days',
-        value='7')
-    logging.debug("[{}] Enabled log_connections".format(resource_id))
+        value=_LOG_RETENTION_DAYS)
+    logging.debug("[{}] Set log_retention_days to: {}".format(resource_id, _LOG_RETENTION_DAYS))
+
+_LOG_RETENTION_DAYS = "7"

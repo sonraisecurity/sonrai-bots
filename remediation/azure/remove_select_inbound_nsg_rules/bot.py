@@ -21,7 +21,7 @@ def run(ctx):
 
     try:
         
-        nsg = network_client.network_security_groups.get(resource_group_name=resource_id.resourcegroup, network_security_group_name=resource_id.name)
+        nsg = network_client.network_security_groups.get(resource_group_name=resource_id.resource_group, network_security_group_name=resource_id.name)
         
         logging.info('retrieved network security group: {}'.format(nsg.id))
 
@@ -36,7 +36,7 @@ def run(ctx):
 
         nsg.security_rules = rules_to_keep
 
-        result = network_client.network_security_groups.begin_create_or_update(resource_group_name=resource_id.resourcegroup, network_security_group_name=resource_id.name, parameters=nsg).result()
+        result = network_client.network_security_groups.begin_create_or_update(resource_group_name=resource_id.resource_group, network_security_group_name=resource_id.name, parameters=nsg).result()
 
         logging.info('Update complete - Status: {}'.format(result.provisioning_state))
 

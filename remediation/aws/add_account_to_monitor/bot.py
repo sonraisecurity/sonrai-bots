@@ -60,7 +60,7 @@ def run(ctx):
     logging.info('Searching for all AWS accounts')
     r_accounts = graphql_client.query(queryAllAccounts, variables)
 
-    # GraphQL to get monitored subscriptions on collector already
+    # GraphQL to get monitored AWS accounts on collector already
     queryPlatformAccounts = ('''query CloudAccounts {
   PlatformCloudAccounts 
   (where:
@@ -92,19 +92,19 @@ def run(ctx):
 
 
     for item in r_accounts['Accounts']['items']:
-        #step through all subscriptions to see if it is already added to a collector
-        add_subscription = True
+        #step through all AWS accounts to see if it is already added to a collector
+        add_account = True
         accountToAdd = item['account']
         account_srn = item['srn']
 
-        #check if the subscriptionToAdd is already added
+        #check if the accountToAdd is already added
         for existing_accounts in r_platform_accounts['PlatformCloudAccounts']['items']:
             account_number = existing_accounts['blob']['accountNumber']
             if accountToAdd == account_number:
-                add_subscription = False
+                add_account = False
 
-        if add_subscription:
-            # Subscription doesn't exist on the collector. Adding it here
+        if add_account:
+            # AWS Account doesn't exist on the collector. Adding it here
             role_arn = ("arn:aws:iam::"+accountToAdd+":role/"+role_name)
             bot_role_arn = ("arn:aws:iam::"+accountToAdd+":role/"+bot_role_name)
             variables =  ('{"account": {"containedByAccount":' +
@@ -118,7 +118,7 @@ def run(ctx):
                                          '}'+
                                      '}'+
                          '}')
-            logging.info('Adding Subscription {}'.format(accountToAdd))
-            r_add_subscription = graphql_client.query(mutation_add_account, variables)
+            logging.info('Adding Account {}'.format(accountToAdd))
+            r_add_account = graphql_client.query(mutation_add_account, variables)
             variables = ('{"key":"SonraiBotAdded","value":"'+ dateStamp + '","srn":"'+account_srn+'"}')
             r_add_tag = graphql_client.query(mutation_add_tag, variables)

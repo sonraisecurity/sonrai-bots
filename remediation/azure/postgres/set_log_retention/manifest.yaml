@@ -1,0 +1,11 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/167e0406-e451-4ea0-a2dc-328e49d26cba
+version: 2020-12-21
+type: Remediation
+title: Postgres - Set Log Retention
+description: |-
+  Sets the Postgres Server's log retention period to 7 days by setting
+  the configuration parameter 'log_retention_days' to '7'
+cloud: Azure
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

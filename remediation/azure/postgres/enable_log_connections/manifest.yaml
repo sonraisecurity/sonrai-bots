@@ -2,6 +2,9 @@
 version: 2020-12-21
 type: Remediation
 title: Postgres - Enable Connection Logging
+description: |-
+  Enables connection logging for a Postgres Server by setting
+  the configuration parameter 'log_connections' to 'on'
 cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

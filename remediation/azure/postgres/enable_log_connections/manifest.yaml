@@ -1,0 +1,9 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/af3e5432-8d4b-4a70-ac85-24f7ae3fc00e
+version: 2020-12-21
+type: Remediation
+title: Postgres - Enable Connection Logging
+cloud: Azure
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+remediationType: DELETE_IDENTITY

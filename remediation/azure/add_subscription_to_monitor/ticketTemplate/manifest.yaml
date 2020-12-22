@@ -1,0 +1,30 @@
+# title of ticket template is required
+title: "Add Azure subscriptions to collector"
+
+# The next fields are optional:
+description: "This template allows you to setup a repeatable process of adding Azure Subscriptions to the Sonrai Platform"
+version: "0.0.1"
+authorName: "Sonrai Security"
+authorEmail: "info@sonraisecurity.com"
+
+# one or more fields must be specified
+fields:
+  - name: "Collector"
+    required: true 
+    type: "select"
+    multi: false
+    select:
+      search: '{PlatformAccounts (where: {cloudType: {value:"azure"}}){count items { name srn }}}'
+      path: ["data", "PlatformAccounts", "items"]
+      valueField: "srn"
+      labelFields: ["name", "srn"]
+
+  - name: "Tenant"
+    required: true
+    type: "select"
+    multi: false
+    select:
+      search: 'query pivotedQuery { Accounts( where: { active: { op: EQ, value: true } cloudType: { op: EQ, value: "azure" } type: { op: IN_LIST, values: [AzureTenant] } }) { items { name account srn } } }'
+      path: ["data", "Accounts", "items"]
+      valueField: "account"
+      labelFields: ["name", "account"]

@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/e75a4016-ab2f-40cb-a906-901eb445e869
+version: 2020-12-21
+type: Remediation
+title: Add Azure Subscription to Sonrai
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: Azure
+authorEmail: info@sonraisecurity.com

@@ -15,15 +15,8 @@ def run(ctx):
     client = ctx.get_client()
     network_client = NetworkManagementClient(client.credential, resource_id.subscription)
 
-    direction = 'Inbound'
-    
-    ports_protocols = None
-    # [
-    #   {
-    #     'port': '8080-8090',
-    #     'protocol': 'udp'
-    #   }
-    # ]
+    direction = 'Outbound' #'Inbound'
+    ports_protocols = ['80/tcp','443/tcp','22/*','3389/*'] #None
 
     try:
         
@@ -69,13 +62,14 @@ def check_rule(rule, direction, ports_protocols):
 
     # Check against protocols and ports
     for pp in ports_protocols:
-      protocol = pp['protocol']
+      pp_split = pp.split('/')
+      protocol = pp_split[1]
 
       # protocols don't match or overlap so skip
       if (protocol != rule.protocol and protocol != '*' and rule.protocol != '*'):
         continue
 
-      port = pp['port']
+      port = pp_split[0]
       ports = (port if port != '*' else '0-65535').split('-')
       min_port = int(ports[0])
       max_port = int(ports[1]) if len(ports) > 1 else min_port

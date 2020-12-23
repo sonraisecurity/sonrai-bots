@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/129ed1f2-b9ba-4124-a284-534f09cb453c
+version: 2020-07-10
+type: Remediation
+title: Remove All Outbound Port/Protocols from Network Security Group (NSG)
+cloud: Azure
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

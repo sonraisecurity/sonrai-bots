@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/8d4611a8-26e9-4b7a-b875-020c6ef75b13
+version: 2020-07-10
+type: Remediation
+title: Remove Select (22, 80, 443, 3389) Outbound Port/Protocols from Network Security Group (NSG)
+cloud: Azure
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

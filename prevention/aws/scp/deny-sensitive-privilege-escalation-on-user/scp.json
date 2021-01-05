@@ -8,6 +8,7 @@
       "Action": [
         "s3:PutBucketPolicy",
         "codestar:AssociateTeamMember",
+        "codestar:CreateProject",
         "iam:CreatePolicyVersion",
         "iam:AttachUserPolicy",
         "iam:AttachRolePolicy",

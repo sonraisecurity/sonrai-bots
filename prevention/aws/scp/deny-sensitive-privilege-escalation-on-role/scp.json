@@ -1,0 +1,49 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenySensitivePrivilegeEscalationOnRole",
+      "Resource" : "*",
+      "Effect": "Deny",
+      "Action": [
+        "s3:PutBucketPolicy",
+        "codestar:AssociateTeamMember",
+        "codestar:CreateProject",
+        "iam:CreatePolicyVersion",
+        "iam:AttachUserPolicy",
+        "iam:AttachRolePolicy",
+        "iam:PutUserPolicy",
+        "iam:PutRolePolicy",
+        "iam:CreateRole",
+        "iam:CreateUser",
+        "iam:UpdateAccessKey",
+        "iam:UpdateUser",
+        "iam:UpdateRole",
+        "iam:CreateAccessKey",
+        "iam:AttachGroupPolicy",
+        "iam:PutGroupPolicy",
+        "iam:AddUserToGroup",
+        "iam:ChangePassword",
+        "iam:AddRoleToInstanceProfile",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:UpdateGroup",
+        "iam:CreateLoginProfile",
+        "iam:UpdateLoginProfile",
+        "iam:SetDefaultPolicyVersion",
+        "iam:SetDefaultPolicyVersion",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:PassRole",
+        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunctionConfiguration",
+        "glue:UpdateDevEndpoint",
+        "sagemaker:CreatePresignedNotebookInstanceUrl",
+        "sts:AssumeRole"
+      ],
+      "Condition": {
+        "ArnEquals": {
+          "aws:PrincipalArn": "arn:aws:iam::*:role/*"
+        }
+      }
+    }
+  ]
+}

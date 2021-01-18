@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/35343790-3eae-4198-a98b-8cee13b76085
+version: 2020-12-21
+type: Remediation
+title: Enable versioning on S3 Bucket
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: AWS
+authorEmail: info@sonraisecurity.com

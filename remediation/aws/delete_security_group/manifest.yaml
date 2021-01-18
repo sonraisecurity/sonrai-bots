@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/D1CA77AB-EB93-43A3-B127-066C79E5B0CC
+version: 2020-07-10
+type: Remediation
+title: Delete AWS Security Group
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

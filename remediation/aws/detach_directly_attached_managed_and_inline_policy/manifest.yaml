@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/cde83101-0cf6-4c79-a1b4-5d575c6c568d
+version: 2020-07-10
+type: Remediation
+title: Detach Directly Attached Managed and Inline Policy
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

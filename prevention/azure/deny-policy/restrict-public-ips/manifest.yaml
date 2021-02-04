@@ -1,4 +1,4 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/2f430bd1-09e5-4ad8-951f-05e46f085719
+# Built-in Sonrai Bot: srn:supersonrai::bot/6394d2fb-53e9-4c82-8119-c484774ed6c1
 version: 2020-02-11
 type: Prevention
 title: Ensure network interfaces do are not created with Public IPs

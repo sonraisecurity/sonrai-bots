@@ -109,7 +109,7 @@ def run(ctx):
             bot_role_arn = ("arn:aws:iam::"+accountToAdd+":role/"+bot_role_name)
             variables =  ('{"account": {"containedByAccount":' +
                                          '{"add": "' + collector_srn + '"},' +
-                                     '"cloudType": "azure",' +
+                                     '"cloudType": "aws",' +
                                      '"blob": {'  +
                                          '"accountNumber": "' + accountToAdd +'",'+
                                          '"roleArn": "' + role_arn + '",' +

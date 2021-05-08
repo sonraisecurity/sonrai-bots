@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/1fe89a40-55f6-45b4-b049-f8d903491b24
+version: 2021-05-08
+type: Remediation
+title: Apply recommended least priviledge policy
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: Azure
+authorEmail: info@sonraisecurity.com

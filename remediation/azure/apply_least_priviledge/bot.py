@@ -40,7 +40,7 @@ class SonraiPolicy:
         self.existing_role_assignment_id = data.get("policyResourceId", None)
         if not self.existing_role_assignment_id:
             raise ValueError("expected: data.policyResourceId")
-        self.subscription_id, self.existing_role_assignment_guid = self._parse_role_assignment_id(self.existing_role_assignment_id)
+        self.subscription_id = self._get_subscription_id(self.existing_role_assignment_id)
 
     def __enter__(self):
         self.client = AuthorizationManagementClient(self.credentials, self.subscription_id)
@@ -58,7 +58,7 @@ class SonraiPolicy:
         raise NotImplementedError()
 
     @staticmethod
-    def _parse_role_assignment_id(role_assignment_id):
+    def _get_subscription_id(role_assignment_id):
         #: TODO Update ParsedPolicyId to allow for non ARM resources
         parts = role_assignment_id.split('/', maxsplit=6)
         if len(parts) != 7 \
@@ -68,7 +68,7 @@ class SonraiPolicy:
                 or parts[4].lower() != 'microsoft.authorization' \
                 or parts[5].lower() != 'roleassignments':
             raise ValueError("Invalid resource id: {}".format(role_assignment_id))
-        return parts[2], parts[6]
+        return parts[2]
 
     def _delete_role_assignment(self, role_assignment_id):
         self.log.info("Deleting role assignment if it exists: {}".format(role_assignment_id))

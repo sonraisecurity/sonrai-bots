@@ -1,5 +1,6 @@
 import logging
 import uuid
+import re
 
 from azure.mgmt.authorization import AuthorizationManagementClient
 from msrestazure.azure_exceptions import CloudError
@@ -138,6 +139,9 @@ class SonraiAttachPolicy(SonraiPolicy):
         self.log.info("Created/Updated Role Assignment: {}".format(ra.id))
         return ra.id
 
+    _INVALID_PERMISSION_PATTERN = re.compile(
+        '\'([^\']+)\' does not match any of the actions supported by the providers\\.')
+
     def _create_or_update_role_definition(self):
         rd_scope = self.role_definition_scope
         rd_name = self.role_definition_name
@@ -161,13 +165,52 @@ class SonraiAttachPolicy(SonraiPolicy):
         # Replace some provided properties
         rd_properties['roleName'] = rd_name
         rd_properties['description'] = rd_description
-        rd = self.client.role_definitions.create_or_update(
-            scope=rd_scope,
-            role_definition_id=rd_guid,
-            role_definition=rd_properties
-        )
+        self._set_permissions(rd_properties)
+        while True:
+            try:
+                rd = self.client.role_definitions.create_or_update(
+                    scope=rd_scope,
+                    role_definition_id=rd_guid,
+                    role_definition=rd_properties
+                )
+                break
+            except CloudError as e:
+                if e.status_code != 400:
+                    raise
+                # Was an invalid permission supplied?
+                # The Sonrai platform detects more permissions than
+                # are accepted by the Role Definition API.
+                # Exclude them from the request, and re-issue it
+                m = self._INVALID_PERMISSION_PATTERN.search(e.message)
+                if not m:
+                    raise
+                # Remove the invalid permission from the request
+                invalid_permission = m.group(1)
+                self.log.info("Excluding invalid permission: {}".format(invalid_permission))
+                modified = False
+                for permissions in rd_properties['permissions']:
+                    for k in ('actions', 'notActions'):
+                        permission_set = permissions[k]
+                        if invalid_permission in permission_set:
+                            permission_set.remove(invalid_permission)
+                            modified = True
+                # If the permission was not found in the request, raise
+                if not modified:
+                    raise
         self.log.info("Created/Updated Role Definition: {}".format(rd.id))
         return rd.id
+
+    @staticmethod
+    def _set_permissions(rd_properties):
+        # Replace list of permissions with a set() for easier manipulation
+        for permissions in rd_properties['permissions']:
+            for k in ('actions', 'notActions'):
+                s = set()
+                for permission in permissions[k]:
+                    if permission.lower().startswith('microsoft.iotspaces'):
+                        continue
+                    s.add(permission)
+                permissions[k] = s
 
     @staticmethod
     def _extract_role_definition_scope(policy_role_definition):

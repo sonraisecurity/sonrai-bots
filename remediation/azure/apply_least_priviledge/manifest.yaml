@@ -6,3 +6,4 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: Azure
 authorEmail: info@sonraisecurity.com
+remediationType: UPDATE_POLICY

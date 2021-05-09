@@ -187,6 +187,8 @@ class SonraiAttachPolicy(SonraiPolicy):
                 modified = False
                 for permissions in rd_properties['permissions']:
                     for k in ('actions', 'notActions'):
+                        if k not in permissions:
+                            continue
                         permission_set = permissions[k]
                         if invalid_permission in permission_set:
                             permission_set.remove(invalid_permission)
@@ -202,6 +204,8 @@ class SonraiAttachPolicy(SonraiPolicy):
         # Replace list of permissions with a set() for easier manipulation
         for permissions in rd_properties['permissions']:
             for k in ('actions', 'notActions'):
+                if k not in permissions:
+                    continue
                 s = set()
                 for permission in permissions[k]:
                     if permission.lower().startswith('microsoft.iotspaces'):

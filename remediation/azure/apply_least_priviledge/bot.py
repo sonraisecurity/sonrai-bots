@@ -186,7 +186,7 @@ class SonraiAttachPolicy(SonraiPolicy):
                 self.log.info("Excluding invalid permission: {}".format(invalid_permission))
                 modified = False
                 for permissions in rd_properties['permissions']:
-                    for k in ('actions', 'notActions'):
+                    for k in ('actions', 'notActions', 'dataActions', 'notDataActions'):
                         if k not in permissions:
                             continue
                         permission_set = permissions[k]
@@ -203,7 +203,7 @@ class SonraiAttachPolicy(SonraiPolicy):
     def _set_permissions(rd_properties):
         # Replace list of permissions with a set() for easier manipulation
         for permissions in rd_properties['permissions']:
-            for k in ('actions', 'notActions'):
+            for k in ('actions', 'notActions', 'dataActions', 'notDataActions'):
                 if k not in permissions:
                     continue
                 s = set()

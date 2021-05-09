@@ -7,17 +7,14 @@ from msrestazure.azure_exceptions import CloudError
 
 
 def run(ctx):
-    with SonraiPolicy.parse(ctx) as policy:
-        policy.enforce()
+    for data in ctx.get_policy_evidence_data():
+        with SonraiPolicy.parse(ctx, data) as policy:
+            policy.enforce()
 
 
 class SonraiPolicy:
     @staticmethod
-    def parse(ctx):
-        data = ctx.get_policy_evidence_data()
-        if not data or len(data) != 1:
-            raise ValueError("expected exactly one entry for: data")
-        data = data[0]
+    def parse(ctx, data):
         policy = data.get("policy", None)
         if not policy:
             raise ValueError("expected: data.policy")

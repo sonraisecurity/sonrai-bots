@@ -15,25 +15,27 @@ def run(ctx):
     zone_name = m.group(2)
     instance_id = m.group(3)
     log_prefix = "[{}/{}/{}] ".format(project_name, zone_name, instance_id)
-
+    # Lookup instance metadata
     client = ctx.get_client().get('compute', 'v1')
     logging.debug(log_prefix + "Looking up instance")
     instance = client.instances().get(project=project_name, zone=zone_name, instance=instance_id).execute()
     instance_metadata = instance.get("metadata")
-    if not _FORCE and _is_metadata_set(instance_metadata):
+    logging.info(log_prefix + "Setting " + _METADATA_KEY)
+    # Set block-project-ssh-keys
+    if _set_block_project_wide_ssh_keys(instance_metadata) and not _FORCE:
+        # If the key was already set, and we are not forcing an update
         logging.info(log_prefix + _METADATA_KEY + " already set")
         return
-    logging.info(log_prefix + "Setting " + _METADATA_KEY)
+    # Update the instance metadata
+    logging.info(log_prefix + "Updating metadata")
     client.instances().setMetadata(project=project_name, zone=zone_name, instance=instance_id,
                                    body=instance_metadata).execute()
 
 
-def _is_metadata_set(metadata):
-    if not metadata:
-        return False
-    metadata_items = metadata.get('items')
-    if not metadata_items:
-        return False
+def _set_block_project_wide_ssh_keys(metadata):
+    if "items" not in metadata:
+        metadata["items"] = []
+    metadata_items = metadata["items"]
     for metadata_item in metadata_items:
         if not metadata_item:
             continue
@@ -41,4 +43,11 @@ def _is_metadata_set(metadata):
             continue
         if metadata_item.get('value') == 'true':
             return True
+        else:
+            metadata_item['value'] = 'true'
+            return False
+    metadata_items.append({
+        'key': _METADATA_KEY,
+        'value': 'true'
+    })
     return False

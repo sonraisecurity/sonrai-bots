@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/da0bae32-2809-4cb8-8513-d64b82900772
+version: 2021-08-23
+type: Remediation
+title: GCP Compute - Block Project-wide SSH Keys
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

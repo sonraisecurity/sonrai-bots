@@ -6,3 +6,8 @@ cloud: GCP
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
+description: |-
+  Sets `enableFlowLogs` and `logConfig.enable` for a given VPC subnetwork.
+  Original `logConfig` values are preserved.
+  If `logConfig.flowSampling` is not set, then 0.5 (50%) is used.
+  If `logConfig.aggregationInterval` is not set, then INTERVAL_5_MIN (5 minutes) is used.

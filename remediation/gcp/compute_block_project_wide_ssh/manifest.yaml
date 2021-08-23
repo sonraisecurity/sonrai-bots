@@ -6,3 +6,5 @@ cloud: GCP
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
+description: |-
+  Sets `block-project-ssh-keys` for a given Compute Instance.

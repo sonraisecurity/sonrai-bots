@@ -5,7 +5,7 @@ _PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]+)/regions/([^/]+
 _DEFAULT_FLOW_SAMPLING = 0.5
 _DEFAULT_AGGREGATION_INTERVAL = 'INTERVAL_5_MIN'
 # Force updates, regardless of whether or not flow logs are enabled
-# Note that original logConfig values are preserved with the exception of logConfig.enabled
+# Note that original logConfig values are preserved with the exception of logConfig.enable
 _FORCE = True
 
 

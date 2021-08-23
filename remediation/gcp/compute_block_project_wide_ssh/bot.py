@@ -1,7 +1,7 @@
 import re
 import logging
 
-_PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]*)/zones/([^/]*)/instances/([^/]*)$', re.IGNORECASE)
+_PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
 _METADATA_KEY = 'block-project-ssh-keys'
 # Force setting block-project-ssh-keys, regardless of the current setting
 _FORCE = True

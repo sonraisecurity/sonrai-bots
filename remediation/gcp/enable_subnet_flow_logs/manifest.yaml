@@ -1,0 +1,8 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/ee8a6b52-24a3-428d-a60e-a11e8137aa76
+version: 2021-08-23
+type: Remediation
+title: GCP Compute - Enable VPC Subnet Flow Logs
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com

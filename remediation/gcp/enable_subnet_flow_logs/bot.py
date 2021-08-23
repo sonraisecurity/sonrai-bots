@@ -16,12 +16,12 @@ def run(ctx):
     project_name = m.group(1)
     region_name = m.group(2)
     subnetwork_id = m.group(3)
-    kwargs = {
+    client_kwargs = {
         "project": project_name,
         "region": region_name,
         "subnetwork": subnetwork_id
     }
-    log_prefix = "[{}] ".format(kwargs)
+    log_prefix = "[{}] ".format(client_kwargs)
 
     # GCP does not allow updating enableFlowLogs and logConfig in the same call
     # Set enableFlowLogs first, then set the logConfig
@@ -29,7 +29,7 @@ def run(ctx):
 
     # Initialize values based on any existing logConfig
     logging.debug(log_prefix + "Looking up subnetwork")
-    subnetwork = client.subnetworks().get(**kwargs).execute()
+    subnetwork = client.subnetworks().get(**client_kwargs).execute()
     # Initialize the logConfig based on the first lookup to save any custom settings, if any
     log_config = subnetwork.get("logConfig")
     if not log_config:
@@ -44,10 +44,10 @@ def run(ctx):
     subnetwork["enableFlowLogs"] = True
     # GCP does not allow updating both at the same time, ensure no logConfig is provided
     subnetwork["logConfig"] = None
-    client.subnetworks().patch(body=subnetwork, **kwargs).execute()
+    client.subnetworks().patch(body=subnetwork, **client_kwargs).execute()
     # Re-initialize the subnetwork
     logging.debug(log_prefix + "Looking up subnetwork")
-    subnetwork = client.subnetworks().get(**kwargs).execute()
+    subnetwork = client.subnetworks().get(**client_kwargs).execute()
 
     # subnetwork.logConfig
     log_config["enable"] = True
@@ -57,4 +57,4 @@ def run(ctx):
         log_config["aggregationInterval"] = _DEFAULT_AGGREGATION_INTERVAL
     subnetwork["logConfig"] = log_config
     logging.info(log_prefix + "Updating logConfig")
-    client.subnetworks().patch(body=subnetwork, **kwargs).execute()
+    client.subnetworks().patch(body=subnetwork, **client_kwargs).execute()

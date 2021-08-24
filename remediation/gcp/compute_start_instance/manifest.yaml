@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/2644d92d-d6f6-46dc-902b-8cc222b24393
+version: 2021-08-24
+type: Remediation
+title: GCP Compute - Start Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Start the given Compute Instance.

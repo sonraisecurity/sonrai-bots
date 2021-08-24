@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/5eef154d-e67e-4a66-b5b1-d7189fcdcd39
+version: 2021-08-23
+type: Remediation
+title: GCP Storage (GCS) - Enable Bucket Versioning
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Sets `versioning.enabled` for a given GCS bucket.

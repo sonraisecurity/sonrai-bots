@@ -7,7 +7,7 @@ _PATTERN = re.compile('^//sqladmin.googleapis.com/projects/([^/]+)/instances/([^
 # If an existing operation is in progress, how long to wait before re-attempting
 _POLL_SEC = 30
 # If an existing operation is in progress, how many times to re-attempt
-_MAX_ATTEMPTS = 10
+_MAX_ATTEMPTS = 20
 
 
 def run(ctx):

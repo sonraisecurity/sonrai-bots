@@ -25,19 +25,9 @@ def run(ctx):
     attempts = 0
     while attempts < _MAX_ATTEMPTS:
         attempts = attempts + 1
-        logging.debug(log_prefix + "Looking up instance")
-        instance = client.instances().get(**client_kwargs).execute()
-        settings = instance.get("settings")
-        if not settings:
-            settings = {}
-            instance["settings"] = settings
-        if settings.get("activationPolicy") == "NEVER":
-            logging.info(log_prefix + "settings.activationPolicy is 'NEVER'. Nothing to do")
-            return
-        settings["activationPolicy"] = "NEVER"
-        logging.info(log_prefix + "Stopping instance")
+        logging.info(log_prefix + "Deleting instance")
         try:
-            client.instances().patch(body=instance, **client_kwargs).execute()
+            client.instances().delete(**client_kwargs).execute()
         except googleapiclient.errors.HttpError as e:
             # In order to populate error_details, __repr__ must be called
             repr(e)

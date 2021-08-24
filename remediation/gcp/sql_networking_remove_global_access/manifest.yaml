@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/b93a7116-0cd4-4941-81ba-2a3ba899f9f4
+version: 2021-08-24
+type: Remediation
+title: GCP SQL - Remove Global Network Access
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Removes all `0.0.0.0/0` entries in the settings.ipConfiguration.authorizedNetworks list.

@@ -43,7 +43,6 @@ def run(ctx):
       Accounts(
         where: {
           cloudType: { op: EQ, value: "aws" }
-          type: { op: IN_LIST, values: [AWSAccount] }
           tagSet: {
             op: NOT_CONTAINS
             value: "sonraiBotAdded"

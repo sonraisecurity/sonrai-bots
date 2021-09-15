@@ -137,6 +137,9 @@ def run(ctx):
                 add_account = False
 
         if add_account:
+            #set default collector
+            collector_srn=default_collector_srn
+
             accountCount += 1 # this is for maximum number of accounts to be added
 
             for tag in item['tagSet']:

@@ -6,3 +6,8 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: AWS
 authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  s3:CreateBucket
+  s3:GetBucketLogging
+  s3:PutBucketLogging
+

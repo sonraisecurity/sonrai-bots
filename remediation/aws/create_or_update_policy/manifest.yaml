@@ -7,3 +7,13 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: UPDATE_POLICY
+requiredPermissions: |-
+  s3:PutBucketPolicy
+  iam:PutUserPolicy
+  iam:PutGroupPolicy
+  iam:PutRolePolicy
+  iam:GetPolicy
+  iam:ListPolicyVersions
+  iam:DeletePolicyVersion
+  iam:CreatePolicyVersion
+  kms:PutKeyPolicy

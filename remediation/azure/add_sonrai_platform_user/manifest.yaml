@@ -7,3 +7,5 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: Azure
 authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  "No permissions needed"

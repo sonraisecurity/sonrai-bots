@@ -9,4 +9,4 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Delete the given Compute Instance.
 requiredPermissions: |-
-    roles/compute.instanceAdmin:compute.instances.delete
+    compute.instances.delete

@@ -9,4 +9,4 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Stop the given Compute Instance.
 requiredPermissions: |-
-  roles/compute.instanceAdmin:compute.instances.stop
+  compute.instances.stop

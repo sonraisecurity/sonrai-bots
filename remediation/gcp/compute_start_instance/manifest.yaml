@@ -9,4 +9,4 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Start the given Compute Instance.
 requiredPermissions: |-
-  roles/compute.instanceAdmin:compute.instances.start
+  compute.instances.start

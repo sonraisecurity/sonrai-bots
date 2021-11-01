@@ -8,3 +8,7 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 description: |-
   Sets `block-project-ssh-keys` for a given Compute Instance.
+requiredPermissions: |-
+  roles/compute.instanceAdmin:compute.instances.get
+  roles/compute.instanceAdmin:compute.instances.setMetadata
+  roles/iam.serviceAccountUser

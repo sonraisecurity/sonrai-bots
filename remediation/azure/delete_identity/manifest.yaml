@@ -8,4 +8,6 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  Microsoft.ManagedIdentity/userAssignedIdentities:Delete User Assigned Identity
+  Microsoft.ManagedIdentity/userAssignedIdentities/Delete
+
+#Todo: finding GraphRbacManagementClient

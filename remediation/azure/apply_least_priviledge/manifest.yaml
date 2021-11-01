@@ -7,3 +7,9 @@ authorName: Sonrai Security
 cloud: Azure
 authorEmail: info@sonraisecurity.com
 remediationType: UPDATE_POLICY
+requiredPermissions: |-
+  Microsoft.Authorization/roleAssignments:Delete role assignment
+  Microsoft.Authorization/roleAssignments:Create role assignment
+  Microsoft.Authorization/roleAssignments:Get role assignment
+  Microsoft.Authorization/roleDefinitions:Get role definition
+  Microsoft.Authorization/roleDefinitions:Create or update custom role definition

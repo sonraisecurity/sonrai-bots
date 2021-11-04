@@ -7,4 +7,4 @@ authorName: Sonrai Security
 cloud: AWS
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  "No permissions needed"
+  No permissions needed

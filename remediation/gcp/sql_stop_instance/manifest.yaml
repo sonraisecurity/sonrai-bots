@@ -10,5 +10,5 @@ description: |-
   If the given SQL instance `settings.activationPolicy` is ALWAYS, stop the instance
   by setting it to NEVER.
 requiredPermissions: |-
-  cloudsql.instances.get
+  cloudsql.instances.get |-
   cloudsql.instances.update

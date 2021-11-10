@@ -8,10 +8,10 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  iam:ListInstanceProfilesForRole
-  iam:ListAttachedRolePolicies
-  iam:ListRolePolicies
-  iam:RemoveRoleFromInstanceProfile
-  iam:DeleteRole
-  iam:DeleteRolePolicy
+  iam:ListInstanceProfilesForRole |-
+  iam:ListAttachedRolePolicies |-
+  iam:ListRolePolicies |-
+  iam:RemoveRoleFromInstanceProfile |-
+  iam:DeleteRole |-
+  iam:DeleteRolePolicy |-
   iam:DetachRolePolicy

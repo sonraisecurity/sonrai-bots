@@ -8,5 +8,5 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  iam.serviceAccounts.delete
+  iam.serviceAccounts.delete |-
   resourcemanager.organizations.getIamPolicy

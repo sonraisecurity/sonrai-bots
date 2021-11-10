@@ -7,5 +7,5 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  Microsoft.Network/applicationSecurityGroups/Read
+  Microsoft.Network/applicationSecurityGroups/Read |-
   Microsoft.Network/applicationSecurityGroups/Write

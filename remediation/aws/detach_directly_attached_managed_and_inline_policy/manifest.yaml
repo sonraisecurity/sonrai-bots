@@ -7,7 +7,7 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  iam:ListAttachedUserPolicies
-  iam:DetachUserPolicy
-  iam:ListUserPolicies
+  iam:ListAttachedUserPolicies |-
+  iam:DetachUserPolicy |-
+  iam:ListUserPolicies |-
   iam:DeleteUserPolicy

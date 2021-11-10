@@ -8,8 +8,8 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  ec2:DescribeInstances
-  ec2:DescribeSecurityGroups
+  ec2:DescribeInstancesx |-
+  ec2:DescribeSecurityGroups |-
   ec2:RevokeSecurityGroupIngress
 
 

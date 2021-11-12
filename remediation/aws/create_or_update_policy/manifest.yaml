@@ -8,12 +8,12 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: UPDATE_POLICY
 requiredPermissions: |-
-  s3:PutBucketPolicy \n
-  iam:PutUserPolicy \n
-  iam:PutGroupPolicy \n
-  iam:PutRolePolicy \n
-  iam:GetPolicy \n
-  iam:ListPolicyVersions \n
-  iam:DeletePolicyVersion \n
-  iam:CreatePolicyVersion \n
-  kms:PutKeyPolicy \n
+  s3:PutBucketPolicy
+  iam:PutUserPolicy
+  iam:PutGroupPolicy
+  iam:PutRolePolicy
+  iam:GetPolicy
+  iam:ListPolicyVersions
+  iam:DeletePolicyVersion
+  iam:CreatePolicyVersion
+  kms:PutKeyPolicy

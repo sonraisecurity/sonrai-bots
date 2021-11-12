@@ -10,8 +10,8 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  iam:DeleteLoginProfile \n
-  iam:ListAccessKeys \n
-  iam:ListAccessKeys \n
+  iam:DeleteLoginProfile
+  iam:ListAccessKeys
+  iam:ListAccessKeys
   iam:DeleteAccessKey
 

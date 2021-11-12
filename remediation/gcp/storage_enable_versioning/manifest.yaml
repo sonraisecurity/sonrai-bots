@@ -9,7 +9,7 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Sets `versioning.enabled` for a given GCS bucket.
 requiredPermissions: |-
-  storage.buckets.get |-
-  storage.buckets.getIamPolicy |-
-  storage.buckets.update |-
+  storage.buckets.get
+  storage.buckets.getIamPolicy
+  storage.buckets.update
   storage.buckets.setIamPolicy

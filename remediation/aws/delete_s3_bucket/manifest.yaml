@@ -7,6 +7,6 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  s3:DeleteBucket \n
-  s3:ListBucket \n
+  s3:DeleteBucket
+  s3:ListBucket
   s3:DeleteObject

@@ -8,10 +8,10 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  iam:ListAttachedGroupPolicies \n
-  iam:ListGroupPolicies \n
-  iam:GetGroup \n
-  iam:DeleteGroup \n
-  iam:RemoveUserFromGroup \n
-  iam:DeleteGroupPolicy \n
+  iam:ListAttachedGroupPolicies
+  iam:ListGroupPolicies
+  iam:GetGroup
+  iam:DeleteGroup
+  iam:RemoveUserFromGroup
+  iam:DeleteGroupPolicy
   iam:DetachGroupPolicy

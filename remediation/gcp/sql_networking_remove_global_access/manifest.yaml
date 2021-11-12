@@ -9,5 +9,5 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Removes all `0.0.0.0/0` entries in the settings.ipConfiguration.authorizedNetworks list.
 requiredPermissions: |-
-  cloudsql.instances.get |-
+  cloudsql.instances.get
   cloudsql.instances.update

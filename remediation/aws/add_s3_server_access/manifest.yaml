@@ -7,7 +7,7 @@ authorName: Sonrai Security
 cloud: AWS
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  s3:CreateBucket |-
-  s3:GetBucketLogging |-
-  s3:PutBucketLogging |-
+  s3:CreateBucket \n
+  s3:GetBucketLogging \n
+  s3:PutBucketLogging \n
 

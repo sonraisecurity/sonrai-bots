@@ -7,12 +7,12 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
-requiredPermissions: '
-  iam:DeleteLoginProfile |-
-  iam:ListAccessKeys |-
-  iam:DeleteAccessKey |-
-  iam:ListSigningCertificates |-
-  iam:DeleteSigningCertificate |-
+requiredPermissions: |-
+  iam:DeleteLoginProfile \n
+  iam:ListAccessKeys \n
+  iam:DeleteAccessKey \n
+  iam:ListSigningCertificates \n
+  iam:DeleteSigningCertificate \n
   iam:ListSSHPublicKeys |-
   iam:DeleteSSHPublicKey |-
   iam:ListServiceSpecificCredentials |-
@@ -26,5 +26,5 @@ requiredPermissions: '
   iam:DetachUserPolicy |-
   iam:ListGroupsForUser |-
   iam:RemoveUserFromGroup |-
-  iam:DeleteUser'
+  iam:DeleteUser
 

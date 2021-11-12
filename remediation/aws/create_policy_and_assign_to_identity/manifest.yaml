@@ -8,18 +8,18 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: UPDATE_POLICY
 requiredPermissions: |-
-  s3:PutBucketPolicy |-
-  iam:PutUserPolicy |-
-  iam:PutGroupPolicy |-
-  iam:PutRolePolicy |-
-  iam:CreatePolicy |-
-  iam:AttachUserPolicy |-
-  iam:AttachGroupPolicy |-
-  iam:AttachRolePolicy |-
-  iam:GetPolicy |-
-  iam:DetachGroupPolicy |-
-  iam:DetachRolePolicy |-
-  iam:DetachUserPolicy |-
-  kms:PutKeyPolicy |-
+  s3:PutBucketPolicy \n
+  iam:PutUserPolicy \n
+  iam:PutGroupPolicy \n
+  iam:PutRolePolicy \n
+  iam:CreatePolicy \n
+  iam:AttachUserPolicy \n
+  iam:AttachGroupPolicy \n
+  iam:AttachRolePolicy \n
+  iam:GetPolicy \n
+  iam:DetachGroupPolicy \n
+  iam:DetachRolePolicy \n
+  iam:DetachUserPolicy \n
+  kms:PutKeyPolicy \n
 python:
   entrypoint: "bot#run"

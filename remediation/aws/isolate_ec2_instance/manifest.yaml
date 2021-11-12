@@ -8,12 +8,12 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  ec2:DescribeInstances |-
-  ec2:StopInstances |-
-  ec2:DescribeSecurityGroups |-
-  ec2:CreateSecurityGroup |-
-  ec2:RevokeSecurityGroupEgress |-
-  ec2:RevokeSecurityGroupIngress |-
+  ec2:DescribeInstances \n
+  ec2:StopInstances \n
+  ec2:DescribeSecurityGroups \n
+  ec2:CreateSecurityGroup \n
+  ec2:RevokeSecurityGroupEgress \n
+  ec2:RevokeSecurityGroupIngress \n
   ec2:ModifyNetworkInterfaceAttribute
 
 

@@ -6,6 +6,6 @@ cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
-requiredPermissions: |-
-  iam:ListAttachedUserPolicies |-
+requiredPermissions|-
+  iam:ListAttachedUserPolicies \n
   iam:DetachUserPolicy

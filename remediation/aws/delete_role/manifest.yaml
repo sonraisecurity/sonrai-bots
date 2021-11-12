@@ -7,11 +7,11 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
-requiredPermissions: """
+requiredPermissions: "
   iam:ListInstanceProfilesForRole
   iam:ListAttachedRolePolicies
   iam:ListRolePolicies
   iam:RemoveRoleFromInstanceProfile
   iam:DeleteRole
   iam:DeleteRolePolicy
-  iam:DetachRolePolicy"""
+  iam:DetachRolePolicy"

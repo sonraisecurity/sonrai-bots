@@ -10,6 +10,6 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 requiredPermissions: |-
-  Microsoft.DBforPostgreSQL/flexibleServers/configurations/Write |-
+  Microsoft.DBforPostgreSQL/flexibleServers/configurations/Write.
   Microsoft.DBforPostgreSQL/servers/configurations/Write
 #TODO: Check which one is correct

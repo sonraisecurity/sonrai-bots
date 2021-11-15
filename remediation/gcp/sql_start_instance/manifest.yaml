@@ -9,3 +9,6 @@ authorEmail: info@sonraisecurity.com
 description: |-
   If the given SQL instance `settings.activationPolicy` is not ALWAYS, start the instance
   by setting it to ALWAYS.
+requiredPermissions: |-
+  cloudsql.instances.get |-
+  cloudsql.instances.update

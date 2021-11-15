@@ -7,3 +7,6 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
+requiredPermissions: |-
+  iam.serviceAccounts.delete |-
+  resourcemanager.organizations.getIamPolicy

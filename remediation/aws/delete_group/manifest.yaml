@@ -7,3 +7,11 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
+requiredPermissions: "
+  iam:ListAttachedGroupPolicies \n
+  iam:ListGroupPolicies \n
+  iam:GetGroup \n
+  iam:DeleteGroup \n
+  iam:RemoveUserFromGroup \n
+  iam:DeleteGroupPolicy \n
+  iam:DetachGroupPolicy \n"

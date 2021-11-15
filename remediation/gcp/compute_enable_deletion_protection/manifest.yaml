@@ -9,3 +9,6 @@ authorEmail: info@sonraisecurity.com
 description: |-
   Enable Deletion Protection for the given Compute Instance.
   If the instance is attached to a Managed Instance Group, then it will not be updated.
+requiredPermissions: |-
+  compute.instances.get |-
+  compute.instances.update

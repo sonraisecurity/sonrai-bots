@@ -7,3 +7,7 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
+requiredPermissions: |-
+  Microsoft.ManagedIdentity/userAssignedIdentities/Delete
+
+#Todo: finding GraphRbacManagementClient

@@ -9,5 +9,9 @@ authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
   Microsoft.ManagedIdentity/userAssignedIdentities/Delete
+  Microsoft.ApiManagement/service/users/Read
+  Microsoft.ApiManagement/service/users/Delete
+  Microsoft.SaaS/applications/read
+  Microsoft.SaaS/applications/delete
 
-#Todo: finding GraphRbacManagementClient
+#Todo: finding service_principals

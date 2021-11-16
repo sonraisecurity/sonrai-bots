@@ -8,3 +8,6 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 description: |-
   Sets `block-project-ssh-keys` for a given Compute Instance.
+requiredPermissions: |-
+  compute.instances.get
+  compute.instances.setMetadata

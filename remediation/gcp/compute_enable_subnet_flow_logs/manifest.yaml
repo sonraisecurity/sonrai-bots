@@ -11,3 +11,6 @@ description: |-
   Original `logConfig` values are preserved.
   If `logConfig.flowSampling` is not set, then 0.5 (50%) is used.
   If `logConfig.aggregationInterval` is not set, then INTERVAL_5_MIN (5 minutes) is used.
+requiredPermissions: |-
+  compute.subnetworks.get
+  compute.subnetworks.update

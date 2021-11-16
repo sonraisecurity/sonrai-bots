@@ -7,3 +7,9 @@ authorName: Sonrai Security
 cloud: Azure
 authorEmail: info@sonraisecurity.com
 remediationType: UPDATE_POLICY
+requiredPermissions: |-
+  Microsoft.Authorization/roleAssignments/Delete
+  Microsoft.Authorization/roleAssignments/Write
+  Microsoft.Authorization/roleAssignments/Read
+  Microsoft.Authorization/roleDefinitions/Read
+  Microsoft.Authorization/roleDefinitions/Write

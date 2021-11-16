@@ -9,3 +9,5 @@ cloud: Azure
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  Microsoft.DBforPostgreSQL/servers/configurations/Write

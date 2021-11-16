@@ -7,3 +7,10 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
+requiredPermissions: |-
+  Microsoft.Directory/applications/standard/read
+  Microsoft.Directory/applications/delete
+  Microsoft.Directory/servicePrincipals/standard/read
+  Microsoft.Directory/servicePrincipals/delete
+  Microsoft.Directory/users/standard/read
+  Microsoft.Directory/users/delete

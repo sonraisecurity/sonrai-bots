@@ -8,9 +8,9 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  microsoft.directory/applications/standard/read
-  microsoft.directory/applications/delete
-  microsoft.directory/servicePrincipals/standard/read
-  microsoft.directory/servicePrincipals/delete
-  microsoft.directory/users/standard/read
-  microsoft.directory/users/delete
+  Microsoft.Directory/applications/standard/read
+  Microsoft.Directory/applications/delete
+  Microsoft.Directory/servicePrincipals/standard/read
+  Microsoft.Directory/servicePrincipals/delete
+  Microsoft.Directory/users/standard/read
+  Microsoft.Directory/users/delete

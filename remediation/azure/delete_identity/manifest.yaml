@@ -8,10 +8,9 @@ authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
 remediationType: DELETE_IDENTITY
 requiredPermissions: |-
-  Microsoft.ManagedIdentity/userAssignedIdentities/Delete
-  Microsoft.ApiManagement/service/users/Read
-  Microsoft.ApiManagement/service/users/Delete
-  Microsoft.SaaS/applications/read
-  Microsoft.SaaS/applications/delete
-
-#Todo: finding service_principals
+  microsoft.directory/applications/standard/read
+  microsoft.directory/applications/delete
+  microsoft.directory/servicePrincipals/standard/read
+  microsoft.directory/servicePrincipals/delete
+  microsoft.directory/users/standard/read
+  microsoft.directory/users/delete

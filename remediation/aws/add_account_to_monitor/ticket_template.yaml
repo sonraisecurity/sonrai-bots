@@ -27,3 +27,7 @@ fields:
   - name: "Bot Role Name"
     required: true
     type: "text"
+
+  - name: "Only add accounts with tag key of sonraiSwimlanes"
+    required: true
+    type: "checkbox"

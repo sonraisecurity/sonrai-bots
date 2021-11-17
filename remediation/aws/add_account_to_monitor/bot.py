@@ -36,23 +36,32 @@ def run(ctx):
             bot_role_name = value
         elif name == 'Collector':
             default_collector_srn = value
+        elif name == 'Only add accounts with tag key of sonraiSwimlanes':
+            tagAccounts = value
 
     #GraphQL query for the AWS accounts
     queryAllAccounts = ('''
     query Accounts {
       Accounts(
         where: {
-          cloudType: { op: EQ, value: "aws" }
+          active: { op: EQ, value: true }
+          type: { op: EQ, value: AWSAccount }
+          status: { op: NEQ, value: "SUSPENDED" }
+          account: {op: REGEX, value: "[0-9]{12}"}
           tagSet: {
             op: NOT_CONTAINS
             value: "sonraiBotAdded"
             caseSensitive: false
-          }
+          } ''')
+    if tagAccounts == 'true':
+        queryAllAccounts += ('''
           tagSet:{
             op:CONTAINS
             value: "sonraiSwimlanes"
             caseSensitive: false
           }
+          ''')
+    queryAllAccounts += ('''
         }
     ) {
       count
@@ -122,7 +131,7 @@ def run(ctx):
     for item in r_accounts['Accounts']['items']:
         if accountCount >= _maxAccountsToAdd:
             # only adding _maxAccountsToAdd with each pass to prevent too many discoveries at once
-            logging.WARN("maximum number of accounts added for this pass")
+            logging.warn("maximum number of accounts added for this pass")
             break
 
         #step through all AWS accounts to see if it is already added to a collector
@@ -142,7 +151,8 @@ def run(ctx):
 
             accountCount += 1 # this is for maximum number of accounts to be added
 
-            for tag in item['tagSet']:
+            if item['tagSet'] is not None:
+              for tag in item['tagSet']:
                 # find which swimlanes to add account to, from the tags on the account
                 if "sonraiSwimlanes" in tag:
                     swimlaneNames = tag.replace("sonraiSwimlanes:","")

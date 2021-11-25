@@ -1,7 +1,7 @@
 import re
 import logging
 
-_PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//compute\.googleapis\.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
 
 
 def run(ctx):

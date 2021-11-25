@@ -2,7 +2,7 @@ import re
 import logging
 import googleapiclient.errors
 
-_PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//compute\.googleapis\.com/projects/([^/]+)/zones/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
 
 
 def run(ctx):

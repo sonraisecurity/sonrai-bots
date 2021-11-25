@@ -1,7 +1,7 @@
 import re
 import logging
 
-_PATTERN = re.compile('^//compute.googleapis.com/projects/([^/]+)/regions/([^/]+)/subnetworks/([^/]+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//compute\.googleapis\.com/projects/([^/]+)/regions/([^/]+)/subnetworks/([^/]+)$', re.IGNORECASE)
 _DEFAULT_FLOW_SAMPLING = 0.5
 _DEFAULT_AGGREGATION_INTERVAL = 'INTERVAL_5_MIN'
 # Force updates, regardless of whether or not flow logs are enabled

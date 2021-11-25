@@ -3,7 +3,7 @@ import re
 import time
 import googleapiclient.errors
 
-_PATTERN = re.compile('^//sqladmin.googleapis.com/projects/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//sqladmin\.googleapis\.com/projects/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
 # If an existing operation is in progress, how long to wait before re-attempting
 _POLL_SEC = 30
 # If an existing operation is in progress, how many times to re-attempt

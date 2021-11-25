@@ -1,7 +1,7 @@
 import re
 import logging
 
-_PATTERN = re.compile('^//storage.googleapis.com/projects/([^/]+)/buckets/(.+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//storage\.googleapis\.com/projects/([^/]+)/buckets/(.+)$', re.IGNORECASE)
 # Force updates, regardless of the current setting
 _FORCE = True
 

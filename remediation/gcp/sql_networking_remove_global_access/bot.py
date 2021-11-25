@@ -1,7 +1,7 @@
 import logging
 import re
 
-_PATTERN = re.compile('^//sqladmin.googleapis.com/projects/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
+_PATTERN = re.compile('^//sqladmin\.googleapis\.com/projects/([^/]+)/instances/([^/]+)$', re.IGNORECASE)
 
 
 def run(ctx):

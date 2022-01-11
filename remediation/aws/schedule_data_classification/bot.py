@@ -12,6 +12,15 @@ def run(ctx):
     includeSamples = "true" # true or false
     scanMode = "FULL_SCAN" # FULL_SCAN, PARTIAL_SCAN or QUICK_SCAN
     classifiers = " ADDRESS, BANKACCOUNTNUMBER, CREDITCARD, DOB, DRIVERSLICENSE, EMAIL, FULLNAME, PASSPORTNUMBER, PHONENUMBER, POSTCODE, SIN, SSN, TAXNUMBER, ZIPCODE "
+    
+    # Samples will be encrypted OR hashed OR neither.
+    hashingEnabled = "false" # true or false
+
+    # If using hashing, uncomment the following three lines and fill them with appropriate values
+    # hashingType = "SHA256" # One of SHA1, SHA256, SHA512, MURMUR128, BLAKE2
+    # saltKeyvaultName = "..." # ARN for the salt secrets manager secret
+    # saltKeyvaultPath = "..." # Salt secrets manager secret path
+
     encryptionEnabled = "false" # true or false
     # comment out next line if encryptionEnabled is false
     # public key needs to have carriage returns removed and replaced with \
@@ -27,7 +36,8 @@ def run(ctx):
                     ' includeSamples: ' + includeSamples +
                     ' scanMode: '  + scanMode +
                     ' classifiers:  [ ' + classifiers + ' ]' +
-                    ' encryptionEnabled: ' + encryptionEnabled
+                    ' encryptionEnabled: ' + encryptionEnabled +
+                    ' hashingEnabled: ' + hashingEnabled
               )
 
     if 'publicKey' in locals():
@@ -35,6 +45,18 @@ def run(ctx):
                     ' publicKey: "' + publicKey + '"'
         )
 
+    if 'saltKeyvaultName' in locals():
+        mutation += (
+                    ' saltKeyvaultName: "' + saltKeyvaultName + '"'
+        )
+
+    if 'saltKeyvaultPath' in locals():
+        mutation += (
+                    ' saltKeyvaultPath: "' + saltKeyvaultPath + '"'
+        )
+
+    # saltKeyvaultName = "..." # ARN for the salt secrets manager secret
+    # saltKeyvaultPath = "..." # Salt secrets manager secret path
     mutation += ( ' }' +
                '}){srn}' +
                '}'

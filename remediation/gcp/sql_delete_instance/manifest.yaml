@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/7e0b470e-cc0b-4e29-bd8c-11b4e822a690
+version: 2021-08-24
+type: Remediation
+title: GCP SQL - Delete Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Delete the given SQL instance.
+requiredPermissions: |-
+  cloudsql.instances.delete

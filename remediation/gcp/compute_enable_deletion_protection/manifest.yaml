@@ -1,0 +1,14 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/2b2b764e-b795-403e-a108-a8c4cd5f32d8
+version: 2021-08-24
+type: Remediation
+title: GCP Compute - Enable Deletion Protection
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Enable Deletion Protection for the given Compute Instance.
+  If the instance is attached to a Managed Instance Group, then it will not be updated.
+requiredPermissions: |-
+  compute.instances.get
+  compute.instances.update

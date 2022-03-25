@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/22af5b97-2485-43d7-b5b7-7f096576ba5e
+version: 2021-08-24
+type: Remediation
+title: GCP Compute - Delete Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Delete the given Compute Instance.
+requiredPermissions: |-
+    compute.instances.delete

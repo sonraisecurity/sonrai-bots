@@ -1,0 +1,14 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/1043f4e7-8a34-443e-b0ae-13e1b6ac5913
+version: 2021-08-24
+type: Remediation
+title: GCP SQL - Stop Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  If the given SQL instance `settings.activationPolicy` is ALWAYS, stop the instance
+  by setting it to NEVER.
+requiredPermissions: |-
+  cloudsql.instances.get
+  cloudsql.instances.update

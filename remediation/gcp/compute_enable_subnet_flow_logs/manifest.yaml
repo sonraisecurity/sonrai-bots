@@ -1,0 +1,16 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/ee8a6b52-24a3-428d-a60e-a11e8137aa76
+version: 2021-08-23
+type: Remediation
+title: GCP Compute - Enable VPC Subnet Flow Logs
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Sets `enableFlowLogs` and `logConfig.enable` for a given VPC subnetwork.
+  Original `logConfig` values are preserved.
+  If `logConfig.flowSampling` is not set, then 0.5 (50%) is used.
+  If `logConfig.aggregationInterval` is not set, then INTERVAL_5_MIN (5 minutes) is used.
+requiredPermissions: |-
+  compute.subnetworks.get
+  compute.subnetworks.update

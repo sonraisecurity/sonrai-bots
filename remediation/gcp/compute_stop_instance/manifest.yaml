@@ -1,0 +1,12 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/e3f2deb8-f9af-405e-8138-5f2769ce54fb
+version: 2021-08-24
+type: Remediation
+title: GCP Compute - Stop Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  Stop the given Compute Instance.
+requiredPermissions: |-
+  compute.instances.stop

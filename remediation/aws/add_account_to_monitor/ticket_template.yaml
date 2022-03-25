@@ -14,7 +14,7 @@ fields:
     type: "select"
     multi: false
     select:
-      search: '{PlatformAccounts (where: {cloudType: {value:"aws"}}){count items { name srn }}}'
+      search: '{PlatformAccounts(where: {cloudType: { op:IN_LIST values: ["aws", "sonraiSaaS"] }}) {items {name srn}}}'
       path: ["data", "PlatformAccounts", "items"]
       valueField: "srn"
       labelFields: ["name", "srn"]
@@ -27,3 +27,7 @@ fields:
   - name: "Bot Role Name"
     required: true
     type: "text"
+
+  - name: "Only add accounts with tag key of sonraiSwimlanes"
+    required: true
+    type: "checkbox"

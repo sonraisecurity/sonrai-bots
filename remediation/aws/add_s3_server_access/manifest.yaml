@@ -1,4 +1,4 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/ad3f8b0-43b7-11eb-b378-0242ac130002
+# Built-in Sonrai Bot: srn:supersonrai::bot/4e90fb45-eea5-460c-ab61-b849cb34e96e
 version: 2020-12-22
 type: Remediation
 title: Add S3 Server Access
@@ -6,3 +6,8 @@ operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: AWS
 authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  s3:CreateBucket
+  s3:GetBucketLogging
+  s3:PutBucketLogging
+

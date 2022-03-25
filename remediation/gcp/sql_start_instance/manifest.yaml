@@ -1,0 +1,14 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/2d88d47b-4eb5-4ed4-a25c-2731703f9294
+version: 2021-08-24
+type: Remediation
+title: GCP SQL - Start Instance
+cloud: GCP
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+description: |-
+  If the given SQL instance `settings.activationPolicy` is not ALWAYS, start the instance
+  by setting it to ALWAYS.
+requiredPermissions: |-
+  cloudsql.instances.get
+  cloudsql.instances.update

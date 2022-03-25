@@ -1,8 +1,8 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/a3b23cb9-9558-4773-b522-a4f06ab6af15
-version: 2022-03-15
+version: 2022-03-25
+type: Remediation
 title: Update identies with custom tag based on identity label
 cloud: ANY
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 authorEmail: info@sonraisecurity.com
-remediationType: AddTag

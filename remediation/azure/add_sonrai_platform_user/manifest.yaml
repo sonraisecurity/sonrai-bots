@@ -1,8 +1,8 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/d84e13ce-ec82-4d1c-b4d2-7bf9dfa3e00f
-version: 2020-12-21
+version: 2021-01-25
 type: Remediation
-title: Add Sonrai Platform User
-description: This bot will invite users to the Sonrai Platform who are members of the Active Directory Group outlined in a custom ticket
+title: Invite Sonrai Platform User
+description: Members of the Active Directory group outlined in the custom ticket will be invited to the Sonrai Platform if they are not already a platform user. They will be invited as Data Viewers for the Swimlanes assigned to the custom ticket.
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
 cloud: Azure

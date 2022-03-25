@@ -13,7 +13,7 @@ def run(ctx):
     graphql_client = ctx.graphql_client()
 
     #query ticket endpoint for swimlanes
-    querySwimlanes = ('''
+    queryTicketsForSwimlanes = ('''
     {
       Tickets
         (where: { srn: {op:EQ, value:"'''+ ticket_srn + '''"}}) 
@@ -25,13 +25,36 @@ def run(ctx):
       }
     ''')
     variables = { }
-    logging.info('Searching for swimlanes for ticket {}'.format(ticket_srn))
+    logging.info('Searching for swimlanes of ticket {}'.format(ticket_srn))
+    r_ticket_swimlanes = graphql_client.query(queryTicketsForSwimlanes, variables)
+
+    swimlaneList = r_ticket_swimlanes['Tickets']['items'][0]['swimlaneSRNs']
+
+    # get resourceIDs of the Swimlanes of the tickets
+    querySwimlanes =('''
+    query Swimlanes ($swimlaneSRNs: [String]){Swimlanes 
+        (where: 
+               {srn: {op:IN_LIST, values:$swimlaneSRNs}}
+        )
+      {
+            items {
+                  resourceId
+        }}}
+    ''')
+
+    #Build the variable to use the query
+
+    variables = ('{"swimlaneSRNs": [')
+    for resourceId in swimlaneList:
+        variables += '"'+resourceId+'",'
+
+    variables = variables[ : -1]
+    variables += ']}'
+
+    logging.info('Searching for resourceIds of swimlanes {}'.format(swimlaneList))
     r_swimlanes = graphql_client.query(querySwimlanes, variables)
 
-    swimlaneList = r_swimlanes['Tickets']['items'][0]['swimlaneSRNs']
-
     group_srns = None
-    sonrai_roles = None
 
     # Loop through each of the custom fields and set the values that we need
     for customField in ticket.get('customFields'):
@@ -43,8 +66,6 @@ def run(ctx):
 
         if name == 'AD Group':
             group_srns = value.strip('][').split(',')
-        elif name == 'Sonrai Role':
-            sonrai_roles = value.strip('][').split(',')
 
     # Built query for groups
     group_filter = ""
@@ -108,32 +129,14 @@ def run(ctx):
     logging.info('Searching for users already invited')
     r_invited_users = graphql_client.query(querySonraiInvites, variables)
 
-    # find the roles
-    querySonraiRoles = '''query role ($roleSrn: String ) {
-    SonraiRoles (where: {srn: {value: $roleSrn }}) {
-      items {
-      expandedPermissions } } }'''
+    # Only allowing this script to assign "Data Viewer" role
+    role = "srn:supersonrai::SonraiRole/DataViewer"
 
+    #build pendingRolesAssigners from role and swimlanes
     pending_role_assigners = '"pendingRoleAssigners":[ '
-
-    for role in sonrai_roles:
-        variables = '{"roleSrn":'+role+'}'
-        r_role_permissions = str(graphql_client.query(querySonraiRoles, variables))
-        edit_role = "edit"
-        special_role = "SwimlaneOwner"
-
-        if edit_role in r_role_permissions and special_role not in role:
-            # this is a platform role so it doesn't require a swimlane
-            # just need the generic org scrope
-            sw = re.sub("srn:(\S+)::.*",r"/org/\1/*",swimlaneList[0])
-            pending_role_assigners += ( '{"roleSrn": '+role+',')
-            pending_role_assigners += ( '"scope": "'+sw+'"},')
-        else:
-            # this is a swimlane role so need to add swimlane
-            for sw in swimlaneList:
-                sw = re.sub("srn:(\w+)::",r"/org/\1/",sw)
-                pending_role_assigners += ( '{"roleSrn": '+role+',')
-                pending_role_assigners += ( '"scope": "'+sw+'"},')
+    for sw in r_swimlanes['Swimlanes']['items']:
+        pending_role_assigners += ( '{"roleSrn": "'+role+'",')
+        pending_role_assigners += ( '"scope": "'+sw['resourceId']+'"},')
 
     #remove the last comma from the pending role assigners
     pending_role_assigners = pending_role_assigners[ : -1]
@@ -148,10 +151,12 @@ def run(ctx):
 
     for email in r_AD_query['Users']['items']:
         invite_user = True
+
         #check if the userName is in the invite list
         for already_invited in r_invited_users['SonraiInvites']['items']:
-           if email == already_invited['email']:
+           if email['userName'] == already_invited['email']:
                invite_user = False
+
         #check if the userName is in the platform user list
         for already_added in r_platform_users['SonraiUsers']['items']:
             if email['userName'] == already_added['email']:

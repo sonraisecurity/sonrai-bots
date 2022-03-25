@@ -18,13 +18,3 @@ fields:
       path: ["data", "Groups", "items"]
       valueField: "srn"
       labelFields: ["name", "srn"]
-
-  - name: "Sonrai Role"
-    required: true
-    type: "select"
-    multi: true
-    select:
-      search: "{SonraiRoles {items {srn name}}}"
-      path: ["data", "SonraiRoles", "items"]
-      valueField: "srn"
-      labelFields: ["name", "srn"]

@@ -1,0 +1,16 @@
+query gcpprojects {
+  Accounts(
+    where: {
+      active: {op: EQ, value: true},
+      status: {op: CONTAINS, value: "ACTIVE"},
+      type: {op: EQ, value: GCPProject},
+      tagSet: {op: NOT_CONTAINS, value: "SonraiBotAdded"}
+    }
+  ) {
+    count
+    items {
+      project_id: account @regex(match: "GCPProject.(.*)", replace: "$1")
+      srn
+    }
+  }
+}

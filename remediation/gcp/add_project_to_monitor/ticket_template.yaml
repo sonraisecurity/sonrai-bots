@@ -1,0 +1,20 @@
+# title of ticket template is required
+title: "Add GCP Projects to collector"
+
+# The next fields are optional:
+description: "This template allows you to setup a repeatable process of adding GCP Projects to the Sonrai Platform"
+version: "0.0.1"
+authorName: "Sonrai Security"
+authorEmail: "info@sonraisecurity.com"
+
+# one or more fields must be specified
+fields:
+  - name: "Collector"
+    required: true 
+    type: "select"
+    multi: false
+    select:
+      search: '{PlatformAccounts(where: {cloudType: { op:IN_LIST values: ["gcp", "sonraiSaaS"] }}) {items {name srn}}}'
+      path: ["data", "PlatformAccounts", "items"]
+      valueField: "srn"
+      labelFields: ["name", "srn"]

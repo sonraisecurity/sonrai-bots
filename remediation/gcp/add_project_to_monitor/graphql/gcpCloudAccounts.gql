@@ -1,0 +1,14 @@
+query CloudAccounts {
+  PlatformCloudAccounts 
+  (where:
+    {
+      cloudType: {value:"gcp"}
+    }
+  )
+  {
+    count
+    items {
+      blob
+   }
+ }
+}

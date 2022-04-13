@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/909d615b-3fa4-4512-bdc8-1bd57efccfad
+version: 2022-04-06
+type: Remediation
+title: Add GCP Projects to Sonrai
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: GCP
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  No permissions needed

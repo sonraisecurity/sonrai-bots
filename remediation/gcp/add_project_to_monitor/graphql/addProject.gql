@@ -1,0 +1,11 @@
+mutation createSubAccount ($account: PlatformcloudaccountCreator!) {
+                  CreatePlatformcloudaccount(value: $account) {
+                    srn
+                    blob
+                    cloudType
+                    name
+                    organizationId
+                    resourceId
+                    __typename
+                  }
+                }

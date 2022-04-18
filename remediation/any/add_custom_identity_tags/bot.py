@@ -1,56 +1,28 @@
 import logging
-from datetime import datetime, timedelta
 
-from query_loader import graphql_files, mutation_files
-
-gql = graphql_files(cloud_type="Azure")
-mut = mutation_files()
+from sonrai import gql_loader
 
 
 def run(ctx):
-    _snooze_interval = 2  # hours
-
-    # Get the ticket data from the context
-    ticket = ctx.config.get('data').get('ticket')
+    # create gql_loader queries
+    gql = gql_loader.queries()
 
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
 
-    query_variables = {}
-    logging.info('Searching for Identities')
-    results = graphql_client.query(gql['Identities.gql'], query_variables)
-    data = results['Identities']['items']
+    # load results of saved search "BOT: Identities" - see graphql/Identities.sql as a sample of the saved search to create in the UI
+    logging.info('Loading SavedSearch Results')
+    data = gql_loader.saved_search(ctx, name="BOT: Identities")
 
-    logging.info('Tagging Identities')
-    for row in data:
-        mutation_variables = ('{"tag_name":"sonraiIdentityTag","label_value":"' + str(row['label']) + '","srn":"' + str(row['srn']) + '"}')
-        return_value = graphql_client.query(mut['labeltotag.mut'], mutation_variables)
+    if data:
+        logging.info('Tagging Identities Started')
+        for row in data['Identities']['items']:
+            mutation_variables = ('{"tag_name":"sonraiIdentityTag","label_value":"' + str(row['label']) + '","srn":"' + str(row['srn']) + '"}')
+            return_value = graphql_client.query(gql['labeltotag.gql'], mutation_variables)
 
-        print("\nReturn Value of Mutation: ", return_value)
+            print("\nReturn Value of Mutation: ", return_value)
 
-    # un-snooze and re-snooze the ticket for a shorter time period
-    mutation_reopen_ticket = ('''
-      mutation openTicket($srn:String){
-        ReopenTickets(input: {srns: [$srn]}) {
-          successCount
-          failureCount
-        }
-      }
-    ''')
-    mutation_snooze_ticket = ('''
-        mutation snoozeTicket($srn: String, $snoozedUntil: DateTime) {
-            SnoozeTickets(snoozedUntil: $snoozedUntil, input: {srns: [$srn]}) {
-              successCount
-              failureCount
-              __typename
-            }
-          }
-    ''')
+        logging.info('Tagging Identities Completed')
 
-    # calculate the snoozeUntil time
-    snooze_until = datetime.now() + timedelta(hours=_snooze_interval)
-    variables = ('{"srn": "' + ticket['srn'] + '", "snoozedUntil": "' + str(snooze_until).replace(" ", "T") + '" }')
-    # re-open ticket so it can be snoozed again
-    graphql_client.query(mutation_reopen_ticket, variables)
-    # snooze ticket
-    graphql_client.query(mutation_snooze_ticket, variables)
+    logging.info('Snoozing Ticket For 2 Hours')
+    gql_loader.snooze_ticket(ctx, hours=2)

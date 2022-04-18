@@ -1,0 +1,23 @@
+query pivotedQuery {
+    Identities(
+        where: {
+            and: [
+                {
+                    and: [
+                        { cloudType: { op: EQ, value: "Azure", caseSensitive: false } }
+                        { active: { op: EQ, value: true } }
+                        { tagSet: { op: NOT_CONTAINS, value: "sonraiIdentityTag"} }
+                    ]
+                }
+            ]
+        }
+    ) {
+        count
+        items {
+            name
+            label
+            srn
+            tagSet
+        }
+    }
+}

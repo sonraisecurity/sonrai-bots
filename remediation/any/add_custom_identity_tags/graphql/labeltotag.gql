@@ -1,0 +1,3 @@
+mutation labeltotag($tag_name: String, $label_value: String, $srn: ID) {
+    AddTag(value: {key: $tag_name, value: $label_value, tagsEntity: {add: [$srn]}}) {srn key value }
+}

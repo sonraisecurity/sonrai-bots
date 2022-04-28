@@ -1,9 +1,11 @@
 import sonrai.platform.aws.arn
 
+import re
 import botocore
+import botocore.exceptions
 import json
 import logging
-import uuid
+import hashlib
 
 
 def run(ctx):
@@ -21,82 +23,99 @@ def run(ctx):
         if data['policyResourceId'] == 'NA':
 
             # identity
-            identity = sonrai.platform.aws.arn.parse(data['resourceId'])
+            identity_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
             policy_name = data['policySrn'].split("/")[len(data['policySrn'].split("/")) - 1]
 
-            client = ctx.get_client().get(identity.service)
+            client = ctx.get_client().get(identity_arn.service)
 
-            if identity.service == 'iam':
-                if identity.resource_type == 'user':
-                    client.put_user_policy(UserName=identity.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
-                elif identity.resource_type == 'group':
-                    client.put_group_policy(GroupName=identity.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
-                elif identity.resource_type == 'role':
-                    client.put_role_policy(RoleName=identity.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
-            elif identity.service == 'kms':
-                client.put_key_policy(KeyId=identity.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
-            elif identity.service == 's3':
-                client.put_bucket_policy(Bucket=identity.name, ConfirmRemoveSelfBucketAccess=True, Policy=policy_to_apply)
+            if identity_arn.service == 'iam':
+                if identity_arn.resource_type == 'user':
+                    client.put_user_policy(UserName=identity_arn.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
+                elif identity_arn.resource_type == 'group':
+                    client.put_group_policy(GroupName=identity_arn.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
+                elif identity_arn.resource_type == 'role':
+                    client.put_role_policy(RoleName=identity_arn.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
+            elif identity_arn.service == 'kms':
+                client.put_key_policy(KeyId=identity_arn.name, PolicyName=policy_name, PolicyDocument=policy_to_apply)
+            elif identity_arn.service == 's3':
+                client.put_bucket_policy(Bucket=identity_arn.name, ConfirmRemoveSelfBucketAccess=True, Policy=policy_to_apply)
             else:
-                raise Exception('service of type {} is not supported for inline policy remediation'.format(identity.service))
+                raise Exception('service of type {} is not supported for inline policy remediation'.format(identity_arn.service))
 
         else:
 
             # Attach to identity
-            identity_arn = data['resourceId']
-            identity = sonrai.platform.aws.arn.parse(data['resourceId'])
+            identity_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
 
             # Get role name
-            resource_arn = sonrai.platform.aws.arn.parse(data['policyResourceId'])
-            policy_arn = data['policyResourceId']
-            policy_name = resource_arn \
+            policy_arn = sonrai.platform.aws.arn.parse(data['policyResourceId']) \
                 .assert_service("iam") \
                 .assert_type("policy") \
-                .name
 
             # Create AWS identity and access management client
             iam_client = ctx.get_client().get('iam')
 
             # Create or update policy
-            policy_arn = create_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name, policy_to_apply=policy_to_apply, identity=identity, resource_arn=resource_arn)
-
-            # Attach to identity
-            logging.info('Attaching policy: {} to identity: {}'.format(policy_arn,identity.name))
-            if identity.resource_type == 'user':
-                iam_client.attach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
-            elif identity.resource_type == 'group':
-                iam_client.attach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
-            elif identity.resource_type == 'role':
-                iam_client.attach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
-            else:
-                raise Exception('Expected identity to be of resource type (user/role/group)')
+            detach_policy(iam_client, policy_arn, identity_arn)
+            policy_arn = create_policy(iam_client, policy_arn, policy_to_apply)
+            attach_policy(iam_client, policy_arn, identity_arn)
 
 
-def create_policy(iam_client=None, policy_arn=None, policy_name=None, policy_to_apply=None, identity=None, resource_arn=None):
+def detach_policy(iam_client, policy_arn, identity_arn):
+    # Detach policy from the identity
+    logging.info('[{}] Detaching policy from identity: {}'.format(policy_arn, identity_arn))
     try:
-        policy = iam_client.get_policy(PolicyArn=policy_arn)
-
-        # Detach policy
-        try:
-            if identity.resource_type == 'user':
-                iam_client.detach_user_policy(UserName=identity.name, PolicyArn=policy_arn)
-            elif identity.resource_type == 'group':
-                iam_client.detach_group_policy(GroupName=identity.name, PolicyArn=policy_arn)
-            elif identity.resource_type == 'role':
-                iam_client.detach_role_policy(RoleName=identity.name, PolicyArn=policy_arn)
-            logging.info('Detaching policy: {} from identity: {}'.format(policy_arn, identity.name))
-        except Exception as error:
-            logging.error('{}'.format(error))
-
-        # Remane AWS Managed policy
-        policy_name = "Sonrai-"+ policy_name + '-' + str(uuid.uuid4())
-        policy_arn = 'arn:{}:{}:{}:{}:{}/{}'.format(resource_arn.partition, resource_arn.service, resource_arn.region,identity.account_id, resource_arn.resource_type,policy_name).replace('None', '')
-        return create_policy(iam_client=iam_client, policy_arn=policy_arn, policy_name=policy_name,policy_to_apply=policy_to_apply)
-
+        if identity_arn.resource_type == 'user':
+            iam_client.detach_user_policy(UserName=identity_arn.name, PolicyArn=str(policy_arn))
+        elif identity_arn.resource_type == 'group':
+            iam_client.detach_group_policy(GroupName=identity_arn.name, PolicyArn=str(policy_arn))
+        elif identity_arn.resource_type == 'role':
+            iam_client.detach_role_policy(RoleName=identity_arn.name, PolicyArn=str(policy_arn))
+        else:
+            raise Exception('Expected identity to be of resource type (user/role/group): {}'.format(identity_arn))
     except botocore.exceptions.ClientError as error:
-        if error.response['Error']['Code'] == 'NoSuchEntity':
-            iam_client.create_policy(PolicyName=policy_name, PolicyDocument=policy_to_apply)
-            return policy_arn
+        if not error.response['Error']['Code'] == 'NoSuchEntity':
+            raise
+        logging.info('[{}] Policy already detached from identity: {}'.format(policy_arn, identity_arn))
 
 
+def attach_policy(iam_client, policy_arn, identity_arn):
+    # Attach to identity
+    logging.info('[{}] Attaching policy to identity: {}'.format(policy_arn, identity_arn))
+    if identity_arn.resource_type == 'user':
+        iam_client.attach_user_policy(UserName=identity_arn.name, PolicyArn=str(policy_arn))
+    elif identity_arn.resource_type == 'group':
+        iam_client.attach_group_policy(GroupName=identity_arn.name, PolicyArn=str(policy_arn))
+    elif identity_arn.resource_type == 'role':
+        iam_client.attach_role_policy(RoleName=identity_arn.name, PolicyArn=str(policy_arn))
+    else:
+        raise Exception('Expected identity to be of resource type (user/role/group): {}'.format(identity_arn))
 
+
+def create_policy(iam_client, policy_arn, policy_document):
+    policy_arn = _new_policy_arn(policy_arn, policy_document)
+    logging.info("New policy: {}".format(policy_arn))
+    logging.info("[{}] Creating policy".format(policy_arn))
+    try:
+        iam_client.create_policy(PolicyName=policy_arn.name, PolicyDocument=policy_document)
+    except botocore.exceptions.ClientError as error:
+        if not error.response['Error']['Code'] == 'EntityAlreadyExists':
+            raise
+        logging.info("[{}] Policy already exists".format(policy_arn))
+    return policy_arn
+
+
+def _new_policy_arn(policy_arn, policy_document):
+    policy_name = policy_arn.name
+    m = _SONRAI_POLICY_NAME_PATTERN.match(policy_name)
+    if m:
+        base = m.group(1)
+    else:
+        base = "Sonrai-" + policy_name
+    policy_name = base + "-" + hashlib.md5(policy_document.encode('utf-8')).hexdigest()
+    return sonrai.platform.aws.arn.parse('arn:{}:{}:{}:{}:{}/{}'.format(
+        policy_arn.partition or '', policy_arn.service or '', policy_arn.region or '',
+        policy_arn.account_id or '', policy_arn.resource_type or '', policy_name))
+
+
+_SONRAI_POLICY_NAME_PATTERN = re.compile("^(Sonrai-.+)-[^-]+$")

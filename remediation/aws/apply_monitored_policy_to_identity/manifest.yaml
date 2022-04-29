@@ -1,7 +1,11 @@
-# Built-in Sonrai Bot: srn:supersonrai::bot/9e6d8698-bd4e-11ea-b3de-0242ac130004
-version: 2020-07-10
+# Built-in Sonrai Bot: srn:supersonrai::bot/bc431611-a8de-4196-a550-d45b1dffef04
+version: 2022-04-28
 type: Remediation
-title: Create policy and assign to identity
+title: Apply recommended monitored policy to identity
+description: |-
+  Applies the Sonrai recommended monitored policy to the given identity.
+  A recommended monitored policy considers only permissions which Sonrai can
+  observe based on auditing.
 cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security
@@ -21,5 +25,4 @@ requiredPermissions: |-
   iam:DetachRolePolicy
   iam:DetachUserPolicy
   kms:PutKeyPolicy
-python:
-  entrypoint: "bot#run"
+

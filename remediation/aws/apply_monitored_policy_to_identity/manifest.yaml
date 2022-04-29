@@ -3,10 +3,10 @@ version: 2022-04-28
 type: Remediation
 title: Apply Monitored Actions Policy to Identity
 description: >-
-  When the bot/escalation applies this remediation, the policy assigned to the identity is based on the 
+  When the bot/escalation applies this remediation, the policy assigned to the identity is based on the
   services and permissions used by the user, and seen by Sonrai.
   
-  Note - not all actions in AWS are included in activity logging, so you may wish to review the 
+  Note - not all actions in AWS are included in activity logging, so you may wish to review the
   policy being applied prior to deploying it into your cloud, or,
   use the "Apply Recommended/Non-Logged Actions Policy to Identity" bot.
 cloud: AWS

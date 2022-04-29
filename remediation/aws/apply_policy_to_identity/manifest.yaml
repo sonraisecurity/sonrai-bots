@@ -1,10 +1,14 @@
 # Built-in Sonrai Bot: srn:supersonrai::bot/9e6d8698-bd4e-11ea-b3de-0242ac130004
 version: 2020-07-10
 type: Remediation
-title: Apply recommended policy to identity
-description: |-
-  Applies the Sonrai recommended policy to the given identity.
-  A Sonrai recommended policy includes permissions which can not be verified by Sonrai based on auditing.
+title: Apply Recommended/Non-Logged Actions Policy to Identity
+description: >-
+  When the bot/escalation applies this remediation, the policy assigned to the identity is based on 2 data sets
+    - the services and permissions used by the user & seen by Sonrai
+    - any services & permissions they previously had access too, but are NOT logged by AWS and thus, not reported to Sonrai.
+  In this scenario, the recommended policy will include both sets of services:permissions, and can result in a
+  substantially larger policy configuration. You may wish to manually review the policy to determine if you want
+  to make changes prior to deploying it into your cloud.
 cloud: AWS
 operation: EXECUTE_PYTHON_SCRIPT
 authorName: Sonrai Security

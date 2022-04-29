@@ -33,13 +33,12 @@ def _apply(ctx, data):
         policy_document.pop("type", None)
 
     identity_arn = sonrai.platform.aws.arn.parse(data['resourceId'])
-    policy_document_str = json.dumps(policy_document) if policy_document else '{}'
+    policy_document_str = json.dumps(policy_document) if policy_document else None
 
     # Verify inline policy_document is to be applied with policyResourceId==NA
     if data['policyResourceId'] == 'NA':
         iam_client = ctx.get_client().get(identity_arn.service)
         policy_name = data['policySrn'].split("/")[len(data['policySrn'].split("/")) - 1]
-
         if policy_document:
             put_inline_policy(iam_client, identity_arn, policy_name, policy_document_str)
         else:

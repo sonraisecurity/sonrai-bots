@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/6bebc2ca-5d71-4ea6-ae1c-7802ddb45ade
+version: 2022-06-13
+type: Remediation
+title: Update iam password reuse policy
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  iam:UpdateAccountPasswordPolicy

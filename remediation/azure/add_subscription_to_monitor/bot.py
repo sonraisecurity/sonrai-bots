@@ -99,15 +99,18 @@ def run(ctx):
        AddTag(value: {key: $key, value: $value, tagsEntity: {add: [$srn]}}) {srn key value }} 
     '''
 
-
-
     for resourceId in r_subscriptions['Subscriptions']['items']:
-        #step through all subscriptions to see if it is already added to a collector
+        # step through all subscriptions to see if it is already added to a collector
         add_subscription = True
-        subscriptionToAdd = re.sub("\/subscriptions\/","", resourceId['resourceId'])
         subscription_srn = resourceId['srn']
+        try:
+            subscriptionToAdd = re.sub("\/subscriptions\/", "", resourceId['resourceId'])
+        except TypeError as e:
+            logging.error("Encountered an invalid or null resourceId for subscription resourceID:'{}' srn:'{}'".format(resourceId, subscription_srn))
+            logging.error(e)
+            continue
 
-        #check if the subscriptionToAdd is already added
+        # check if the subscriptionToAdd is already added
         for existing_subscriptions in r_platform_subscriptions['PlatformCloudAccounts']['items']:
             subscriptionId = existing_subscriptions['blob']['subscriptionId']
             if subscriptionToAdd == subscriptionId:

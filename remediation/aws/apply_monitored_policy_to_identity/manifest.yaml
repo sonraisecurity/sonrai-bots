@@ -1,0 +1,31 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/bc431611-a8de-4196-a550-d45b1dffef04
+version: 2022-04-28
+type: Remediation
+title: Apply Monitored Actions Policy to Identity
+description: >-
+  When the bot/escalation applies this remediation, the policy assigned to the identity is based on the
+  services and permissions used by the user, and seen by Sonrai.
+  
+  Note - not all actions in AWS are included in activity logging, so you may wish to review the
+  policy being applied prior to deploying it into your cloud, or,
+  use the "Apply Recommended/Non-Logged Actions Policy to Identity" bot.
+cloud: AWS
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+authorEmail: info@sonraisecurity.com
+remediationType: UPDATE_POLICY
+requiredPermissions: |-
+  s3:PutBucketPolicy
+  iam:PutUserPolicy
+  iam:PutGroupPolicy
+  iam:PutRolePolicy
+  iam:CreatePolicy
+  iam:AttachUserPolicy
+  iam:AttachGroupPolicy
+  iam:AttachRolePolicy
+  iam:GetPolicy
+  iam:DetachGroupPolicy
+  iam:DetachRolePolicy
+  iam:DetachUserPolicy
+  kms:PutKeyPolicy
+

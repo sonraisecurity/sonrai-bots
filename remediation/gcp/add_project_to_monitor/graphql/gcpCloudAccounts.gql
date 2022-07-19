@@ -7,7 +7,7 @@ query CloudAccounts {
   )
   {
     count
-    items {
+    items (limit: -1) {
       blob
    }
  }

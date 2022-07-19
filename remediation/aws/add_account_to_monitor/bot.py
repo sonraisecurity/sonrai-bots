@@ -65,7 +65,7 @@ def run(ctx):
         }
     ) {
       count
-      items {
+      items (limit: -1) {
         account
         srn
         tagSet
@@ -88,7 +88,7 @@ def run(ctx):
   )
   {
     count
-    items {
+    items (limit: -1) {
       cloudType
       blob
     }
@@ -198,7 +198,7 @@ def run(ctx):
         query SwimlaneSRN($title: String) {
           Swimlanes(where: { title: { op: EQ, value: $title } }) {
             count
-            items {
+            items (limit: -1) {
               srn
             }
           }

@@ -8,7 +8,7 @@ query gcpprojects {
     }
   ) {
     count
-    items {
+    items (limit: -1) {
       project_id: account @regex(match: "GCPProject.(.*)", replace: "$1")
       srn
     }

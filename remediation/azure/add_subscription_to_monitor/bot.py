@@ -44,7 +44,7 @@ def run(ctx):
         }
         ){
     count
-    items {
+    items (limit: -1) {
       type
       cloudType
       account
@@ -69,7 +69,7 @@ def run(ctx):
   )
   {
     count
-    items {
+    items (limit: -1) {
       cloudType
       blob
     }

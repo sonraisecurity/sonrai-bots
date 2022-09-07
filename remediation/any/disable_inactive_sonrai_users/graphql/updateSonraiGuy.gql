@@ -1,0 +1,10 @@
+mutation updateSonraiGuy($updateGuy: [SonraiUserUpdater!]!) {
+  UpdateSonraiUsers(input: $updateGuy) {
+    items {
+      email
+      name
+      isActive
+      lastLogin
+    }
+  }
+}

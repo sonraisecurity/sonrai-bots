@@ -1,0 +1,29 @@
+# title of ticket template is required
+title: "Disable Sonrai Inactive Users"
+
+# The next fields are optional:
+description: "This template allows you to setup a bot to disable inactive users"
+version: "0.0.1"
+authorName: "Sonrai Security"
+authorEmail: "info@sonraisecurity.com"
+
+# one or more fields must be specified
+fields:
+  - name: "Never Disable These Users"
+    required: true 
+    type: "select"
+    multi: true
+    select:
+      search: '{SonraiUsers(where: { isActive: true }) {items {email}}}'
+      path: ["data", "SonraiUsers", "items"]
+      valueField: "email"
+      labelFields: ["email"]
+
+  - name: "Disable in-active users after this many days"
+    required: true
+    type: "text"
+    multi: false
+
+  - name: "Keep Sonrai-Security Users"
+    required: true
+    type: "checkbox"

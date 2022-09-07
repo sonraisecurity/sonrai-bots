@@ -1,0 +1,12 @@
+query fetchUsers {
+  SonraiUsers(where: { isActive: true }) {
+    count
+    items {
+      name
+      email
+      srn
+      isActive
+      lastLogin: lastLogin @formatDateTime(epochSecond: true)
+    }
+  }
+}

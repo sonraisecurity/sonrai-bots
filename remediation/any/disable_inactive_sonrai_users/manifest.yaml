@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/e890f06e-82dc-4a7f-9b24-133f83c31579
+version: 2022-09-07
+type: Remediation
+title: Disable Sonrai Inactive Users
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: ANY
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  bot_user needs User Admin to deactivate users

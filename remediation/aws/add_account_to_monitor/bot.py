@@ -1,4 +1,5 @@
 import logging
+from sonrai import gql_loader
 import sys
 import re
 import time
@@ -6,14 +7,16 @@ from datetime import datetime, timedelta
 
 def run(ctx):
     #CONSTANTS
-    _maxAccountsToAdd = 10
-    _snoozeInterval = 2 #hours
+    _maxAccountsToAdd = 100
 
     # Get the ticket data from the context
     ticket = ctx.config.get('data').get('ticket')
     currentTime = round(time.time() * 1000)
     now = datetime.now()
     dateStamp = now.strftime("%Y-%m-%dT%H:%M:%S")
+    
+    # Load searches:
+    gql = gql_loader.queries()
 
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
@@ -21,6 +24,7 @@ def run(ctx):
     role_name = None
     bot_role_name = None
     default_collector_srn = None
+    tagAccounts = None
 
     # Loop through each of the custom fields and set the values that we need
     for customField in ticket.get('customFields'):
@@ -40,98 +44,38 @@ def run(ctx):
             tagAccounts = value
 
     #GraphQL query for the AWS accounts
-    queryAllAccounts = ('''
-    query Accounts {
-      Accounts(
-        where: {
-          active: { op: EQ, value: true }
-          type: { op: EQ, value: AWSAccount }
-          status: { op: NEQ, value: "SUSPENDED" }
-          account: {op: REGEX, value: "[0-9]{12}"}
-          tagSet: {
-            op: NOT_CONTAINS
-            value: "sonraiBotAdded"
-            caseSensitive: false
-          } ''')
     if tagAccounts == 'true':
-        queryAllAccounts += ('''
-          tagSet:{
-            op:CONTAINS
-            value: "sonraiSwimlanes"
-            caseSensitive: false
-          }
-          ''')
-    queryAllAccounts += ('''
-        }
-    ) {
-      count
-      items (limit: -1) {
-        account
-        srn
-        tagSet
-      }
-    }
-  }
-    ''')
+        queryAllAccounts = gql['accountsWithTag.gql']
+    else:
+        queryAllAccounts = gql['accountsWithoutTag.gql']
 
     variables = { }
     logging.info('Searching for all AWS accounts')
     r_accounts = graphql_client.query(queryAllAccounts, variables)
 
     # GraphQL to get monitored AWS accounts on collector already
-    queryPlatformAccounts = ('''query CloudAccounts {
-  PlatformCloudAccounts
-  (where:
-    {
-      cloudType: {value:"aws"}
-    }
-  )
-  {
-    count
-    items (limit: -1) {
-      cloudType
-      blob
-    }
-  }
-}''')
+    queryPlatformAccounts = gql['platformCloudAccounts.gql']
     variables = { }
     logging.info('Searching for already monitored accounts on collector: {}'.format(default_collector_srn))
     r_platform_accounts = graphql_client.query(queryPlatformAccounts, variables)
 
     # mutation to add account
-    mutation_add_account = '''
-    mutation createSubAccount($account: PlatformcloudaccountCreator!) {
-    CreatePlatformcloudaccount(value: $account) {srn blob cloudType  name }}'''
+    mutation_add_account = gql['createPlatformcloudaccount.gql']
 
     # mutation for adding a processed tag to the account
-    mutation_add_tag  = '''
-       mutation addTagsWithNoDuplicates($key: String, $value: String, $srn: ID) {
-       AddTag(value: {key: $key, value: $value, tagsEntity: {add: [$srn]}}) {srn key value }}
-    '''
+    mutation_add_tag = gql['addTag.gql']
 
     # query for collector's SRN
-    query_collector_srn = ('''
-        query collectorSRN($name: String){
-          PlatformAccounts
-            (where: { 
-              cloudType: { value: "aws" } 
-              name: {op:EQ value:$name}
-            }) {
-              count
-              items {
-                srn 
-              }
-            }
-          }
-    ''')
+    query_collector_srn = gql['collectorSrn.gql']
 
     accountCount = 0
     swimlaneAccountList = dict()
+    accountList = None
 
     for item in r_accounts['Accounts']['items']:
         if accountCount >= _maxAccountsToAdd:
             # only adding _maxAccountsToAdd with each pass to prevent too many discoveries at once
-            logging.warn("maximum number of accounts added for this pass")
+            logging.warning("maximum number of accounts added for this pass")
             break
 
         #step through all AWS accounts to see if it is already added to a collector
@@ -176,11 +120,11 @@ def run(ctx):
             # AWS Account doesn't exist on the collector. Adding it here
             role_arn = ("arn:aws:iam::"+accountToAdd+":role/"+role_name)
             bot_role_arn = ("arn:aws:iam::"+accountToAdd+":role/"+bot_role_name)
-            variables1 =  ('{"account": {"containedByAccount":' +
+            variables1 = ('{"account": {"containedByAccount":' +
                                          '{"add": "' + collector_srn + '"},' +
                                      '"cloudType": "aws",' +
-                                     '"blob": {'  +
-                                         '"accountNumber": "' + accountToAdd +'",'+
+                                     '"blob": {' +
+                                         '"accountNumber": "' + accountToAdd + '",' +
                                          '"roleArn": "' + role_arn + '",' +
                                          '"botRoleArn": "' + bot_role_arn + '",' +
                                          '"runDateTime": ' + str(currentTime) +
@@ -188,29 +132,25 @@ def run(ctx):
                                      '}'+
                          '}')
             logging.info('Adding Account {} to collector {}'.format(accountToAdd,collector_srn))
+            
+            # build the list of accounts being added so a comment can be added to the ticket
+            if accountList is None:
+                accountList = "- " + accountToAdd
+            else:
+                accountList = accountList + "\\n- " + accountToAdd
+                
             r_add_account = graphql_client.query(mutation_add_account, variables1)
-            variables2 = ('{"key":"sonraiBotAdded","value":"'+ dateStamp + '","srn":"'+account_srn+'"}')
+            variables2 = ('{"key":"SonraiBotAdded","value":"'+ dateStamp + '","srn":"'+account_srn+'"}')
             r_add_tag = graphql_client.query(mutation_add_tag, variables2)
 
-
+    if accountList is not None:
+        # build comment for ticket
+        comment = "The following accounts have been added for monitoring:\\n" + accountList
+        gql_loader.add_ticket_comment(ctx, comment)
+    
     # section for adding accounts to swimlanes
-    query_find_swimlane_SRN = ('''
-        query SwimlaneSRN($title: String) {
-          Swimlanes(where: { title: { op: EQ, value: $title } }) {
-            count
-            items (limit: -1) {
-              srn
-            }
-          }
-        }
-    ''')
-    mutation_add_to_swimlane = ('''
-       mutation updateSwimlane($swimlane: SwimlaneUpdater!, $srn: ID!) {
-        UpdateSwimlane(srn: $srn, value: $swimlane) {
-          srn
-        }
-      }
-    ''' )
+    query_find_swimlane_SRN = gql['swimlaneSrn.gql']
+    mutation_add_to_swimlane = gql['updateSwimlane.gql']
 
     for swimlane in swimlaneAccountList:
         # find the swimlane's SRN from the swimlane's name
@@ -220,7 +160,7 @@ def run(ctx):
         # check if the swimlane exists
         if r_swimlane_srn['Swimlanes']['count'] == 0:
             # swimlane doesn't exist skip this one
-            logging.warn(" Swimlane {} doesn't exist skipping.".format(swimlane))
+            logging.warning(" Swimlane {} doesn't exist skipping.".format(swimlane))
             continue
 
         swimlaneSRN = r_swimlane_srn['Swimlanes']['items'][0]['srn']
@@ -236,31 +176,6 @@ def run(ctx):
 
         # add the accounts to swimlane
         r_add_to_swimlane = graphql_client.query(mutation_add_to_swimlane, variables2)
-
-
-    # un-snooze and re-snooze the ticket for a shorter time period
-    mutation_reopen_ticket = ('''
-      mutation openTicket($srn:String){
-        ReopenTickets(input: {srns: [$srn]}) {
-          successCount
-          failureCount
-        }
-      }
-    ''')
-    mutation_snooze_ticket = ('''
-        mutation snoozeTicket($srn: String, $snoozedUntil: DateTime) {
-            SnoozeTickets(snoozedUntil: $snoozedUntil, input: {srns: [$srn]}) {
-              successCount
-              failureCount
-              __typename
-            }
-          }
-    ''')
-    # calculate the snoozeUntil time
-    snoozeUntil = datetime.now() + timedelta(hours=_snoozeInterval)
-    variables = ('{"srn": "' + ticket['srn'] + '", "snoozedUntil": "' + str(snoozeUntil).replace(" ","T") + '" }')
-    # re-open ticket so it can be snoozed again
-    r_reopen_ticket = graphql_client.query(mutation_reopen_ticket, variables)
-    # snooze ticket
-    r_snooze_ticket = graphql_client.query(mutation_snooze_ticket, variables)
-
+        
+    # snooze ticket for 2 hours
+    gql_loader.snooze_ticket(ctx, hours=2)

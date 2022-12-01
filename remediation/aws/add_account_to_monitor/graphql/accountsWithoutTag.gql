@@ -1,0 +1,18 @@
+query Accounts {
+  Accounts(
+    where: {
+      active: { op:EQ, value:true }
+      type: { op:EQ, value:AWSAccount }
+      status: { op:NEQ, value:"SUSPENDED" }
+      account: {op:REGEX, value:"[0-9]{12}"}
+      tagSet: { op:NOT_CONTAINS value:"sonraiBotAdded" caseSensitive:false } 
+    }
+) {
+  count
+  items (limit: -1) {
+    account
+    srn
+    tagSet
+  }
+ }
+}

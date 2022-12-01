@@ -1,0 +1,5 @@
+mutation updateSwimlane($swimlane: SwimlaneUpdater!, $srn: ID!) {
+  UpdateSwimlane(srn: $srn, value: $swimlane) {
+    srn
+  }
+}

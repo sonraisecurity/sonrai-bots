@@ -1,0 +1,16 @@
+query Subscriptions ($tenant: String) {
+  Subscriptions (where: {
+        account: {value:$tenant}
+        tagSet: { op: NOT_CONTAINS value: "SonraiBotAdded" caseSensitive: false }
+      }
+    ){
+    count
+    items (limit: -1) {
+      type
+      cloudType
+      account
+      resourceId
+      srn
+    }
+  }
+}

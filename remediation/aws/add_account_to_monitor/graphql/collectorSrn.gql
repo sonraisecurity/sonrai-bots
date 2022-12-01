@@ -1,0 +1,12 @@
+query collectorSRN($name: String){
+     PlatformAccounts
+       (where: { 
+         cloudType: { value: "aws" } 
+         name: {op:EQ value:$name}
+       }) {
+         count
+         items {
+           srn 
+         }
+       }
+     }

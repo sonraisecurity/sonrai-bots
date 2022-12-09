@@ -1,0 +1,8 @@
+query SwimlaneSRN($title: String) {
+  Swimlanes(where: { title: { op: EQ, value: $title } }) {
+    count
+    items (limit: -1) {
+      srn
+    }
+  }
+}

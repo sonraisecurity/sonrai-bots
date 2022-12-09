@@ -1,0 +1,15 @@
+query CloudAccounts {
+  PlatformCloudAccounts
+  (where:
+    {
+      cloudType: {value:"aws"}
+    }
+  )
+  {
+    count
+    items (limit: -1) {
+      cloudType
+      blob
+    }
+  }
+}

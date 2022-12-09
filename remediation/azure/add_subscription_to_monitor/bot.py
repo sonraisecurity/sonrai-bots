@@ -1,4 +1,5 @@
 import logging
+from sonrai import gql_loader
 import sys
 import re
 import time
@@ -10,6 +11,9 @@ def run(ctx):
     currentTime = round(time.time() * 1000)
     now = datetime.now()
     dateStamp = now.strftime("%Y-%m-%dT%H:%M:%S")
+
+    # Load searches:
+    gql = gql_loader.queries()
 
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
@@ -31,74 +35,26 @@ def run(ctx):
             collector_srn = value
 
     #GraphQL query for the subscriptions
-    queryAllSubscriptions = ('''
-    query Subscriptions ($tenant: String) {
-  Subscriptions (where: {
-        account: {value:$tenant}
-        tagSet: {
-            op: NOT_CONTAINS
-            value: "SonraiBotAdded"
-            caseSensitive: false
-          }
-        
-        }
-        ){
-    count
-    items (limit: -1) {
-      type
-      cloudType
-      account
-      resourceId
-      srn
-    }
-  }
-}
-    ''')
+    queryAllSubscriptions = gql['subscriptions.gql']
 
     variables = ( '{"tenant": "' + tenant_id +'"}')
     logging.info('Searching for all subscriptions for tenant id : {}'.format(tenant_id))
     r_subscriptions = graphql_client.query(queryAllSubscriptions, variables)
 
     # GraphQL to get monitored subscriptions on collector already
-    queryPlatformSubscriptions = ('''query CloudAccounts {
-  PlatformCloudAccounts 
-  (where:
-    {
-      cloudType: {value:"azure"}
-    }
-  )
-  {
-    count
-    items (limit: -1) {
-      cloudType
-      blob
-    }
-  }
-}''')
+    queryPlatformSubscriptions = gql['platformCloudAccounts.gql']
 
     variables = ( '{"srn": "'+collector_srn+'"}')
-    logging.info('Searching for already monitored accounts on collector: {}'.format(collector_srn))
+    logging.info('Searching for already monitored subscriptions on collector: {}'.format(collector_srn))
     r_platform_subscriptions = graphql_client.query(queryPlatformSubscriptions, variables)
 
     # mutation to add Azure Subscription
-    mutation_add_subscription = ''' mutation createSubAccount($account: PlatformcloudaccountCreator!) {
-                  CreatePlatformcloudaccount(value: $account) {
-                    srn
-                    blob
-                    cloudType
-                    name
-                    organizationId
-                    resourceId
-                    __typename
-                  }
-                } '''
+    mutation_add_subscription = gql['createPlatformcloudaccount.gql']
 
     # mutation for adding a tag to the Subscription so it won't get processed again.
-    mutation_add_tag  = '''
-       mutation addTagsWithNoDuplicates($key: String, $value: String, $srn: ID) {
-       AddTag(value: {key: $key, value: $value, tagsEntity: {add: [$srn]}}) {srn key value }} 
-    '''
+    mutation_add_tag  = gql['addTag.gql']
 
+    subscription_list = None
     for resourceId in r_subscriptions['Subscriptions']['items']:
         # step through all subscriptions to see if it is already added to a collector
         add_subscription = True
@@ -128,7 +84,23 @@ def run(ctx):
                                          '}'+
                                      '}'+
                          '}')
+            
+            
+            if subscription_list is None:
+                subscription_list = "- " + subscriptionToAdd
+            else:
+                subscription_list = subscription_list + "\\n- " + subscriptionToAdd
+
             logging.info('Adding Subscription {}'.format(subscriptionToAdd))
             r_add_subscription = graphql_client.query(mutation_add_subscription, variables)
             variables = ('{"key":"SonraiBotAdded","value":"'+ dateStamp + '","srn":"'+subscription_srn+'"}')
             r_add_tag = graphql_client.query(mutation_add_tag, variables)
+            exit(0)
+            
+    if subscription_list is not None:
+        # build comment for ticket
+        comment = "The following subscriptions have been added for monitoring:\\n" + subscription_list
+        gql_loader.add_ticket_comment(ctx, comment)
+
+    gql_loader.snooze_ticket(ctx, hours=2)
+    

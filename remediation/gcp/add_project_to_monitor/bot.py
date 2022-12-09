@@ -7,7 +7,7 @@ from sonrai import gql_loader
 
 def run(ctx):
     # CONSTANTS
-    _maxProjectsToAdd = 10
+    _maxProjectsToAdd = 1
     gql = gql_loader.queries()
 
     # Get the ticket data from the context
@@ -43,6 +43,7 @@ def run(ctx):
     r_platform_projects = graphql_client.query(gql['gcpCloudAccounts.gql'], variables)
 
     project_count = 0
+    project_list = None
     for project in r_projects['Accounts']['items']:
         if project_count >= _maxProjectsToAdd:
             # only add _maxProjectsToAdd
@@ -74,10 +75,22 @@ def run(ctx):
                          '}' +
                          '}' +
                          '}')
+            
+            if project_list is None:
+                project_list = "- " + project_to_add
+            else:
+                project_list = project_list + "\\n- " + project_to_add
+                
             logging.info('Adding project {}'.format(project_to_add))
             r_add_project = graphql_client.query(gql['addProject.gql'], variables)
             variables = ('{"key":"SonraiBotAdded","value":"' + date_stamp + '","srn":"' + project_srn + '"}')
             r_add_tag = graphql_client.query(gql['addTag.gql'], variables)
 
+    if project_list is not None:
+        # build comment for ticket
+        comment = "The following projects have been added for monitoring:\\n" + project_list
+        gql_loader.add_ticket_comment(ctx, comment)
+
+    # snooze ticket for 2 hours
     gql_loader.snooze_ticket(ctx, hours=2)
     

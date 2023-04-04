@@ -1,1 +1,2 @@
- createPlatformcloudaccount.gql
+mutation addTagsWithNoDuplicates($key: String, $value: String, $srn: ID) {
+   AddTag(value: {key: $key, value: $value, tagsEntity: {add: [$srn]}}) {srn key value }}

@@ -93,9 +93,8 @@ def run(ctx):
 
             logging.info('Adding Subscription {}'.format(subscriptionToAdd))
             r_add_subscription = graphql_client.query(mutation_add_subscription, variables)
-            variables = ('{"key":"SonraiBotAdded","value":"'+ dateStamp + '","srn":"'+subscription_srn+'"}')
+            variables = ('{"key":"SonraiBotAdded","value":"' + dateStamp + '","srn":"' + subscription_srn + '"}')
             r_add_tag = graphql_client.query(mutation_add_tag, variables)
-            exit(0)
             
     if subscription_list is not None:
         # build comment for ticket

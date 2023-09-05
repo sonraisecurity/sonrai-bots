@@ -7,7 +7,8 @@ def run(ctx):
     stack_name = arn \
         .assert_service('cloudformation') \
         .assert_type('stack') \
-        .resource
+        .resource \
+        .split('/')[-2]
 
     # Create AWS CloudFormation client
     cf_client = ctx.get_client().get('cloudformation', region=arn.region)

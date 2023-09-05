@@ -8,7 +8,7 @@ def run(ctx):
 
     stack_resource_srn = ctx.resource_srn
 
-    stack_name = stack_resource_srn.split('/')[-1]
+    stack_name = stack_resource_srn.split('/')[-2]
 
     logging.info(f'Deleting stack {stack_name}.')
     cf_client.delete_stack(StackName=stack_name)

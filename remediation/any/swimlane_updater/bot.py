@@ -1,11 +1,14 @@
 import datetime
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
+from sonrai import gql_loader
+
 
 def run(ctx):
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
+    ticket = ctx.config.get('data').get('ticket')
 
     # load results of saved search - see graphql/Users.sql
     logging.info('Loading User Results')
@@ -26,8 +29,6 @@ def run(ctx):
       }
     }
     ''')
-
-    # print(sus_results)
 
     # Iterate through each swimlane
     for item in sus_results['data']['Swimlanes']['items']:
@@ -89,10 +90,10 @@ def run(ctx):
                                 updates[search_type] = list(set(tempR))
 
                         except KeyError:
-                            print("Invalid Search or Search_Group in tag: {search_keys}:{search}".format(search_keys=data[0], search=data[1]))
+                            logging.error("Invalid Search or Search_Group in tag: {search_keys}:{search}".format(search_keys=data[0], search=data[1]))
 
                     else:
-                        print("Invalid Search or Search_Group in tag: {search_keys}:{search}".format(search_keys=data[0], search=data[1]))
+                        logging.error("Invalid Search or Search_Group in tag: {search_keys}:{search}".format(search_keys=data[0], search=data[1]))
 
         # create the REMOVE and ADD arrays and update the swimlane
         remove_resourceIds = list()
@@ -125,9 +126,31 @@ def run(ctx):
         swimlane_mutation = 'mutation updateSwimlane {{ UpdateSwimlane(srn: "{srn}", value: {resource} {accounts} ) {{ srn }}}}'.format(srn=item['srn'], resource=resource, accounts=accounts)
         if len(add_resourceIds) > 2 or len(remove_resourceIds) > 2 or len(add_accounts) > 2 or len(remove_accounts) > 2:
             swimlane_results = graphql_client.query(swimlane_mutation)
-            print("Swimlane Update: ", item['title'], swimlane_results)
+            logging.info("Swimlane Update: ", item['title'], swimlane_results)
+            
+            # build comment for ticket
+            comment = "Swimlane Update: {}".format(item['title'])
 
-            print("ADD: ", add_resourceIds)
-            print("DEL: ", remove_resourceIds)
-            print("ADD: ", len(add_accounts))
-            print("DEL: ", len(remove_accounts))
+            if len(add_resourceIds) > 2:
+                comment += "\nAdding Resource Ids: {}".format(add_resourceIds)
+            if len(remove_resourceIds) > 2:
+                comment += "\nRemoving Resource Ids: {}".format(remove_resourceIds)
+            if len(add_accounts) > 2:
+                comment += "\nAdding Accounts: {}".format(add_accounts)
+            if len(remove_accounts) > 2:
+                comment += "\nRemoving Accounts: {}".format(remove_accounts)
+                
+            gql_loader.add_ticket_comment(ctx, comment)
+
+    # update the ticket runtime
+    update_ticket_mutation = '''mutation updateTicket {{
+  UpdateTicket(
+    input: {{
+      ticketSrn: "{ticket_srn}"
+      customFields: {{ name: "last_run", value: "{last_run_timestamp}" }{{
+    }}
+  ) {{
+   srn
+  }}
+}}
+'''.format(ticket_srn=ticket.get('srn'), last_run_timestamp=datetime.datetime.fromtimestamp(time.time()).isoformat())

@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/15fe12b6-85f2-4c65-9e15-01e14e5022b6
+version: 2023-10-02
+type: Remediation
+title: Update Swimlanes with new account via advanced search
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: ANY
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  bot_user needs swimlane_owner to update the swimlanes

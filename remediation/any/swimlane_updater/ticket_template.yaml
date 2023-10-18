@@ -9,4 +9,8 @@ authorEmail: "info@sonraisecurity.com"
 
 # one or more fields must be specified
 fields:
-# no fields are necessary for this custom ticket template to make the update swimlane bot work properly
+# no fields are necessary for this custom ticket template to make the update swimlane bot work properly, creating a hidden field
+  - name: "hidden_field"
+    required: false
+    type: "hidden"
+    multi: false

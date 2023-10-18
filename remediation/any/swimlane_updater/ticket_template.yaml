@@ -8,5 +8,5 @@ authorName: "Sonrai Security"
 authorEmail: "info@sonraisecurity.com"
 
 # one or more fields must be specified
-#fields:
+fields:
 # no fields are necessary for this custom ticket template to make the update swimlane bot work properly

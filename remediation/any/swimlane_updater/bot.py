@@ -29,9 +29,9 @@ def run(ctx):
       }
     }
     ''')
-
+    
     # Iterate through each swimlane
-    for item in sus_results['data']['Swimlanes']['items']:
+    for item in sus_results['Swimlanes']['items']:
         # Dictionary for update
         # Keys: R = Resource IDs, A = Accounts, N = Names, T = Tags
         updates = {"R": [], "A": [], "N": [], "T": []}
@@ -79,7 +79,7 @@ def run(ctx):
                         search_results = graphql_client.query('{{ExecuteSavedQuery {{Query (name:"{search}" )}}}}'.format(search=search))
 
                         try:
-                            for row in search_results['data']['ExecuteSavedQuery']['Query'][search_group]['items']:
+                            for row in search_results['ExecuteSavedQuery']['Query'][search_group]['items']:
                                 tempR = list(updates[search_type])
                                 if search_type == 'R':
                                     tempR.append('*' + row[return_value] + '*')
@@ -110,7 +110,7 @@ def run(ctx):
             if swimlane[key]:
                 add_accounts = list(set(updates[key]) - set(swimlane[key]))
                 remove_accounts = list(set(swimlane[key]) - set(updates[key]))
-
+                
         # Build the mutations
 
         # Resources
@@ -126,8 +126,8 @@ def run(ctx):
         swimlane_mutation = 'mutation updateSwimlane {{ UpdateSwimlane(srn: "{srn}", value: {resource} {accounts} ) {{ srn }}}}'.format(srn=item['srn'], resource=resource, accounts=accounts)
         if len(add_resourceIds) > 2 or len(remove_resourceIds) > 2 or len(add_accounts) > 2 or len(remove_accounts) > 2:
             swimlane_results = graphql_client.query(swimlane_mutation)
-            logging.info("Swimlane Update: ", item['title'], swimlane_results)
-            
+            logging.info("Swimlane Update: " + item['title'])
+
             # build comment for ticket
             comment = "Swimlane Update: {}".format(item['title'])
 

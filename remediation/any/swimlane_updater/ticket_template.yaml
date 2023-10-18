@@ -12,5 +12,5 @@ fields:
 # no fields are necessary for this custom ticket template to make the update swimlane bot work properly, creating a hidden field
   - name: "hidden_field"
     required: false
-    type: "hidden"
+    type: hidden
     multi: false

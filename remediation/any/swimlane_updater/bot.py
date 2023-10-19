@@ -140,6 +140,7 @@ def run(ctx):
             if len(remove_accounts) > 2:
                 comment += "\nRemoving Accounts: {}".format(remove_accounts)
                 
+            comment = comment.replace('"', "'")
             logging.info(comment)
             gql_loader.add_ticket_comment(ctx, comment)
         else:

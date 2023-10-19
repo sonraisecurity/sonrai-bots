@@ -4,18 +4,17 @@ import time
 from datetime import datetime
 from sonrai import gql_loader
 
-
 def run(ctx):
     # Create GraphQL client
     graphql_client = ctx.graphql_client()
     ticket = ctx.config.get('data').get('ticket')
 
     # load results of saved search - see graphql/Users.sql
-    logging.info('Loading User Results')
+    logging.info('Querying Swimlanes with proper tagging')
 
     # Swimlane update search
     sus_results = graphql_client.query('''
-    query {
+    query swimlane {
       Swimlanes ( where: { tags: { op: CONTAINS value: "|update-search" } } )
       {
         count
@@ -76,6 +75,7 @@ def run(ctx):
                     # some generic test for a valid search string
                     if search and search.isascii() and search != '*' and len(search_keys) == 4:
                         # Execute the search
+                        logging.info("Running search from swimlane tag: " + search)
                         search_results = graphql_client.query('{{ExecuteSavedQuery {{Query (name:"{search}" )}}}}'.format(search=search))
 
                         try:
@@ -125,8 +125,8 @@ def run(ctx):
 
         swimlane_mutation = 'mutation updateSwimlane {{ UpdateSwimlane(srn: "{srn}", value: {resource} {accounts} ) {{ srn }}}}'.format(srn=item['srn'], resource=resource, accounts=accounts)
         if len(add_resourceIds) > 2 or len(remove_resourceIds) > 2 or len(add_accounts) > 2 or len(remove_accounts) > 2:
+            logging.info("Preparing to Update Swimlane: " + item['title'])
             swimlane_results = graphql_client.query(swimlane_mutation)
-            logging.info("Swimlane Update: " + item['title'])
 
             # build comment for ticket
             comment = "Swimlane Update: {}".format(item['title'])
@@ -140,7 +140,10 @@ def run(ctx):
             if len(remove_accounts) > 2:
                 comment += "\nRemoving Accounts: {}".format(remove_accounts)
                 
+            logging.info(comment)
             gql_loader.add_ticket_comment(ctx, comment)
+        else:
+            logging.info("Nothing to do for Swimlane: " + item['title'])
 
     # update the ticket runtime
     now = datetime.now()
@@ -156,3 +159,5 @@ def run(ctx):
   }}
 }}
 '''.format(ticket_srn=ticket.get('srn'), last_run_timestamp=date_stamp)
+    
+    custom_field_results = graphql_client.query(update_ticket_mutation)

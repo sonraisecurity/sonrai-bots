@@ -152,7 +152,7 @@ def run(ctx):
   UpdateTicket(
     input: {{
       ticketSrn: "{ticket_srn}"
-      customFields: {{ name: "last_run", value: "{last_run_timestamp}" }{{
+      customFields: {{ name: "last_run", value: "{last_run_timestamp}" }}
     }}
   ) {{
    srn

@@ -132,13 +132,13 @@ def run(ctx):
             comment = "Swimlane Update: {}".format(item['title'])
 
             if len(add_resourceIds) > 2:
-                comment += "\nAdding Resource Ids: {}".format(add_resourceIds)
+                comment += "\\nAdding Resource Ids: {}".format(add_resourceIds)
             if len(remove_resourceIds) > 2:
-                comment += "\nRemoving Resource Ids: {}".format(remove_resourceIds)
+                comment += "\\nRemoving Resource Ids: {}".format(remove_resourceIds)
             if len(add_accounts) > 2:
-                comment += "\nAdding Accounts: {}".format(add_accounts)
+                comment += "\\nAdding Accounts: {}".format(add_accounts)
             if len(remove_accounts) > 2:
-                comment += "\nRemoving Accounts: {}".format(remove_accounts)
+                comment += "\\nRemoving Accounts: {}".format(remove_accounts)
                 
             comment = comment.replace('"', "'")
             logging.info(comment)

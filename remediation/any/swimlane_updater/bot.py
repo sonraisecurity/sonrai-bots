@@ -143,6 +143,8 @@ def run(ctx):
             gql_loader.add_ticket_comment(ctx, comment)
 
     # update the ticket runtime
+    now = datetime.now()
+    date_stamp = now.strptime("%Y-%m-%dT%H:%M:%S")
     update_ticket_mutation = '''mutation updateTicket {{
   UpdateTicket(
     input: {{
@@ -153,4 +155,4 @@ def run(ctx):
    srn
   }}
 }}
-'''.format(ticket_srn=ticket.get('srn'), last_run_timestamp=datetime.datetime.fromtimestamp(time.time()).isoformat())
+'''.format(ticket_srn=ticket.get('srn'), last_run_timestamp=date_stamp)

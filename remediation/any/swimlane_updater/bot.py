@@ -146,8 +146,8 @@ def run(ctx):
             logging.info("Nothing to do for Swimlane: " + item['title'])
 
     # update the ticket runtime
-    now = datetime.now()
-    date_stamp = now.strptime("%Y-%m-%dT%H:%M:%S")
+    current_time = datetime.now()
+    date_stamp = current_time.strftime("%Y-%m-%dT%H:%M:%S")
     update_ticket_mutation = '''mutation updateTicket {{
   UpdateTicket(
     input: {{

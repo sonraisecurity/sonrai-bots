@@ -1,0 +1,7 @@
+query getTicket($srn: String!){
+  ListFindings(where: {srn:{value:$srn}}){
+    items{
+      cfFields
+    }
+  }
+}

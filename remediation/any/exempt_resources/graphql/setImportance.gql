@@ -1,0 +1,6 @@
+mutation importance($srn: String!) {
+  setImportance(srn: $srn, importance: 0) {
+    srn
+    importance
+  }
+}

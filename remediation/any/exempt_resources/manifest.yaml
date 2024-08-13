@@ -1,0 +1,10 @@
+# Built-in Sonrai Bot: srn:supersonrai::bot/0742ff71-c9e6-4993-94d7-10648dbea837
+version: 2024-3-22
+type: Remediation
+title: Exempt Resource in Sonrai
+operation: EXECUTE_PYTHON_SCRIPT
+authorName: Sonrai Security
+cloud: ANY
+authorEmail: info@sonraisecurity.com
+requiredPermissions: |-
+  No permissions needed
